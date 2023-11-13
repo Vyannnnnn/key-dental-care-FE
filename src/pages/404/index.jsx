@@ -1,7 +1,13 @@
 import React from "react";
 
 const NotFound = () => {
-  return <div>NotFound</div>;
+  return (
+    <div>
+      <h1 className="text-red-800 text-7xl flex justify-center items-center h-screen">
+        NotFound
+      </h1>
+    </div>
+  );
 };
 
 export default NotFound;
