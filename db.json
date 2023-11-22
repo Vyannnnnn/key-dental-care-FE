@@ -1,0 +1,81 @@
+{
+    "get": [
+        {
+            "id": 1,
+            "nomor": 1,
+            "nama": "berliyan",
+            "umur": "20",
+            "jenis_kelamin": "P",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "082232123134",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 2,
+            "nomor": 2,
+            "nama": "john",
+            "umur": "20",
+            "jenis_kelamin": "P",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "081234567890",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 3,
+            "nomor": 3,
+            "nama": "jane",
+            "umur": "20",
+            "jenis_kelamin": "P",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "087654321098",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 4,
+            "nomor": 4,
+            "nama": "michael",
+            "umur": "20",
+            "jenis_kelamin": "P",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "081112233445",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 5,
+            "nomor": 5,
+            "nama": "susan",
+            "umur": "20",
+            "jenis_kelamin": "P",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "089876543210",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 6,
+            "nomor": 6,
+            "nama": "robert",
+            "umur": "20",
+            "jenis_kelamin": "L",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "081234567890",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        },
+        {
+            "id": 7,
+            "nomor": 7,
+            "nama": "emily",
+            "umur": "20",
+            "jenis_kelamin": "L",
+            "alamat": "Pariaman,Sumatera Barat",
+            "no_telepon": "087654321098",
+            "kode_antrian": "aifhe12",
+            "pelayanan": "Cabut Gigi"
+        }
+    ]
+}
