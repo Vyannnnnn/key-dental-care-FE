@@ -1,89 +1,70 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactPaginate from "react-paginate";
-import {BsChevronBarLeft, BsChevronBarRight} from "react-icons/bs";
-import { motion } from "framer-motion";
 
 const Pagination = () => {
-  const paginationVariants = {
-    hidden : {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      y: 5,
-      transition: {
-        type: 'spring',
-        stiffness: 260,
-        damping: 20,
-        duration: 1,
-      },
-    },
-  };
   return (
-    <motion.div variants={paginationVariants} initial='hidden' animate='visible' className="flex justify-end mx-8">
-      {/* <span className="flex items-center justify-center px-4 py-2 mx-1 text-gray-500 capitalize bg-white rounded-md cursor-not-allowed rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-600">
+    <div className="flex items-center justify-between mt-6">
+      <Link
+        href="#"
+        className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-5 h-5 rtl:-scale-x-100"
         >
           <path
-            fillRule="evenodd"
-            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-            clipRule="evenodd"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
           />
         </svg>
-      </span>
+      </Link>
 
-      {[1, 2, 3].map((pageNumber) => (
+      <div className="items-center hidden md:flex gap-x-3">
         <Link
-          key={pageNumber}
-          to={`/page/${pageNumber}`}
-          className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:inline dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+          href="#"
+          className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
         >
-          {pageNumber}
+          1
         </Link>
-      ))}
+        <Link
+          href="#"
+          className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+        >
+          2
+        </Link>
+        <Link
+          href="#"
+          className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+        >
+          3
+        </Link>
+      </div>
 
-      <span className="flex items-center justify-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md rtl:-scale-x-100 dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+      <Link
+        href="#"
+        className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-5 h-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-5 h-5 rtl:-scale-x-100"
         >
           <path
-            fillRule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clipRule="evenodd"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
           />
         </svg>
-      </span> */}
-
-<ReactPaginate
-        breakLabel={
-          <span className="mr-4">...</span>
-        }
-        nextLabel= {
-          <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md ml-5">
-            <BsChevronBarRight/>
-          </span>
-        }
-        // onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={20}
-        previousLabel= {
-          <span className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-md mr-5">
-            <BsChevronBarLeft />
-          </span>
-        }
-        containerClassName="flex items-center justify-center mt-8 mb-4"
-        pageClassName="block border border-solid border-gray-200 hover:bg-gray-400 w-10 h-10 flex items-center justify-center rounded-md mr-4"
-        activeClassName="bg-primary text-white"
-      />
-    </motion.div>
+      </Link>
+    </div>
   );
 };
 

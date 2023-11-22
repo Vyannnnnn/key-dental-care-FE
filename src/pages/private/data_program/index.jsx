@@ -1,17 +1,105 @@
 import React from "react";
-import AdminLayout from "../../../components/private/AdminLayout";
+import Navigation from "../../../components/private/Navigation";
+import Navbar from "../../../components/private/Navbar";
+import Footer from "../../../components/private/Footer";
+import TableContent from "../../../components/private/TableContent";
+import Pagination from "../../../components/private/Pagination";
 
 const DataPasien = () => {
+  const th = [
+    "Nomor",
+    "Nama Program",
+    "Harga",
+    "Deskripsi",
+    "Thumbnail",
+    "Aksi",
+  ];
+  const td = [
+    "1",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "2",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "3",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "4",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "5",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "6",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+    "7",
+    "Pencabutan Gigi Anak",
+    "50 - 100 K",
+    "Lorem Ipsum",
+    "Gambar1",
+    "",
+    // <ReusableButton />,
+  ];
+
   return (
-    <AdminLayout className="h-screen w-screen">
-      <div className="h-full text-red-800 text-7xl flex justify-center items-center text-center overflow-hidden">
-        <div className="w-4/5 h-[460px] rounded-2xl absolute  flex justify-center items-center top-[80px]">
-          <div className="h-full w-11/12 bg-white shadow-lg rounded-2xl flex justify-center items-center">
-            <h1 className="text-2xxl">Data Program Page</h1>
-          </div>
+    <div className="layout flex">
+      <Navigation />
+      <main className="flex flex-col grow">
+        <Navbar
+          page="Data Program"
+          breadcrumb=" Data Program"
+          showCreateButton={true}
+        />
+        <div className="content grow object-contain">
+          <section className="container px-[39px] py-[39px] mx-auto">
+            <div className="flex flex-col">
+              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                    <TableContent th={th} td={td} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Pagination />
+          </section>
         </div>
-      </div>
-    </AdminLayout>
+        <Footer />
+      </main>
+    </div>
+  );
+};
+
+const ReusableButton = () => {
+  return (
+    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
+      ...
+    </button>
   );
 };
 
