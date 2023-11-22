@@ -1,162 +1,92 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
-
-
 
 const Navigation = () => {
-    const [hoveredIndex, setHoveredIndex] = useState(null);
   return (
-    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l  dark:border-gray-700">
-      <div className="flex items-center justify-center">
-        <Link to="/">
-          <img className="w-auto sm:h-12" src="../../../public/logo.svg" alt="Kei Dental Care" />
+    <div className="navigation h-screen w-[300px]">
+      <aside className="fixed flex flex-col w-[300px] h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+        <Link to="/admin" className="mx-auto">
+          <img className="w-auto h-12" src="/logo.svg" alt="" />
         </Link>
-      </div>
+        <div className="flex flex-col justify-between flex-1 mt-12">
+          <nav className="flex flex-col">
+            <div>
+              <Link
+                // bg-gray-100
+                className="flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin"
+              >
+                <img className="w-auto h-[16px]" src="/dashboard.svg" alt="" />
+                <span className="mx-4 font-medium">Dashboard</span>
+              </Link>
 
-      <div className="flex flex-col justify-between flex-1 mt-6">
-        <nav>
-          {[
-            {
-              to: "/admin",
-              label: "Dashboard",
-              icon: (
-                <svg width="30" height="20" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-                  <path
-                    d="M23.5264 21.8181H9.68759C8.92369 21.8181 8.30371 22.3068 8.30371 22.909C8.30371 23.5112 8.92369 23.9999 9.68759 23.9999H23.5264C24.2903 23.9999 24.9102 23.5112 24.9102 22.909C24.9102 22.3068 24.2903 21.8181 23.5264 21.8181Z"
-                    fill="black"
-                  />
-                  <path
-                    d="M1.38388 0H31.8292C32.5931 0 33.2131 0.488727 33.2131 1.09091V18.5455C33.2131 19.1476 32.5931 19.6364 31.8292 19.6364H1.38388C0.619977 19.6364 0 19.1476 0 18.5455V1.09091C0 0.488727 0.619977 0 1.38388 0ZM2.76776 17.4545H30.4453V2.18182H2.76776V17.4545Z"
-                    fill="black"
-                  />
-                </svg>
-              ),
-            },
-            {
-              to: "/admin/data_pasien",
-              label: "Data Pasien",
-              icon: (
-                <svg stroke="currentColor" width="30" height="20" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M4.94727 6.0074C4.94727 2.68961 7.63688 0 10.9547 0C14.2725 0 16.9621 2.68961 16.9621 6.0074C16.9621 9.3252 14.2725 12.0148 10.9547 12.0148C7.63688 12.0148 4.94727 9.3252 4.94727 6.0074ZM10.9547 2.12026C8.80786 2.12026 7.06753 3.86059 7.06753 6.0074C7.06753 8.15421 8.80786 9.89454 10.9547 9.89454C13.1015 9.89454 14.8418 8.15421 14.8418 6.0074C14.8418 3.86059 13.1015 2.12026 10.9547 2.12026Z"
-                    fill="#F5365C"
-                  />
-                  <path
-                    d="M5.30065 16.2553C3.54417 16.2553 2.12026 17.6792 2.12026 19.4357V21.1154C2.12026 21.1409 2.13879 21.1627 2.16404 21.1669C7.98592 22.1174 13.9234 22.1174 19.7453 21.1669C19.7706 21.1627 19.7891 21.1409 19.7891 21.1154V19.4357C19.7891 17.6792 18.3652 16.2553 16.6087 16.2553H16.1269C16.0896 16.2553 16.0526 16.2612 16.0172 16.2728L14.7938 16.6723C12.2992 17.4868 9.61016 17.4868 7.11557 16.6723L5.89216 16.2728C5.85674 16.2612 5.81972 16.2553 5.78247 16.2553H5.30065ZM0 19.4357C0 16.5082 2.37318 14.1351 5.30065 14.1351H5.78247C6.04325 14.1351 6.30239 14.1763 6.55029 14.2572L7.7737 14.6567C9.84065 15.3316 12.0687 15.3316 14.1356 14.6567L15.3591 14.2572C15.607 14.1763 15.8661 14.1351 16.1269 14.1351H16.6087C19.5362 14.1351 21.9093 16.5082 21.9093 19.4357V21.1154C21.9093 22.1801 21.1377 23.0879 20.087 23.2594C14.0388 24.2469 7.87054 24.2469 1.82239 23.2594C0.77161 23.0879 0 22.18 0 21.1154V19.4357Z"
-                    fill="#F5365C"
-                  />
-                </svg>
-              ),
-            },
-            {
-              to: "/admin/data_antrian",
-              label: "Data Antrian",
-              icon: (
-                <svg stroke="currentColor" width="30" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M13.3711 0.341424C12.5082 -0.10895 11.3389 -0.1159 10.4691 0.333315C7.13508 2.05518 4.11106 4.02942 1.46108 6.21914C1.05128 6.55775 0.760463 7.04981 0.765425 7.62899C0.770367 8.20579 1.06711 8.69127 1.47441 9.02431C4.10238 11.1731 7.12889 13.1491 10.4019 14.8573C11.2648 15.3077 12.4341 15.3147 13.3039 14.8655C16.6379 13.1436 19.6619 11.1693 22.3119 8.97963C22.7217 8.64102 23.0125 8.14896 23.0076 7.56978C23.0026 6.99298 22.7059 6.5075 22.2986 6.17446C19.6706 4.02568 16.6441 2.04965 13.3711 0.341424ZM11.3541 2.04696C11.6623 1.88781 12.1685 1.88932 12.4787 2.05125C15.6024 3.68152 18.4805 5.55711 20.9739 7.58297C18.4656 9.64142 15.596 11.511 12.4189 13.1518C12.1107 13.311 11.6045 13.3095 11.2943 13.1475C8.17063 11.5172 5.2925 9.64166 2.79906 7.6158C5.30739 5.55735 8.17696 3.68782 11.3541 2.04696Z"
-                    fill="#FB6340"
-                  />
-                  <path
-                    d="M23.712 12.3479C23.994 12.7996 23.8564 13.3945 23.4047 13.6766L15.552 18.5792C14.4864 19.2444 13.1644 19.552 11.8864 19.5521C10.6084 19.5522 9.28626 19.2447 8.22052 18.5796L0.453905 13.7325C0.00208321 13.4505 -0.1356 12.8557 0.14638 12.4038C0.42836 11.952 1.02322 11.8143 1.47504 12.0963L9.24166 16.9434C9.94133 17.3801 10.8918 17.6235 11.8863 17.6234C12.8808 17.6233 13.8311 17.3798 14.5306 16.9431L22.3833 12.0406C22.835 11.7585 23.4299 11.8961 23.712 12.3479Z"
-                    fill="#FB6340"
-                  />
-                  <path
-                    d="M23.7119 17.1756C23.994 17.6273 23.8565 18.2222 23.4048 18.5043L16.6043 22.7511C15.2444 23.6003 13.5433 23.9999 11.8863 24C10.2293 24.0001 8.52813 23.6007 7.16804 22.7517L0.453806 18.5602C0.00201868 18.2782 -0.135593 17.6833 0.146441 17.2315C0.428475 16.7797 1.02336 16.6421 1.47514 16.9242L8.18938 21.1156C9.18332 21.7361 10.5127 22.0714 11.8862 22.0713C13.2597 22.0712 14.589 21.7358 15.5827 21.1152L22.3832 16.8684C22.8349 16.5863 23.4298 16.7238 23.7119 17.1756Z"
-                    fill="#FB6340"
-                  />
-                </svg>
-              ),
-            },
-            {
-              to: "/admin/data_program",
-              label: "Data Program",
-              icon: (
-                <svg stroke="currentColor" width="30" height="20" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M14.1538 13.2308C14.1538 12.721 13.7406 12.3077 13.2308 12.3077H5.84615C5.33635 12.3077 4.92308 12.721 4.92308 13.2308C4.92308 13.7406 5.33635 14.1538 5.84615 14.1538H13.2308C13.7406 14.1538 14.1538 13.7406 14.1538 13.2308Z"
-                    fill="#FFD600"
-                  />
-                  <path
-                    d="M14.1538 18.1538C14.1538 17.644 13.7406 17.2308 13.2308 17.2308H5.84615C5.33635 17.2308 4.92308 17.644 4.92308 18.1538C4.92308 18.6636 5.33635 19.0769 5.84615 19.0769H13.2308C13.7406 19.0769 14.1538 18.6636 14.1538 18.1538Z"
-                    fill="#FFD600"
-                  />
-                  <path
-                    d="M3.38462 0C1.51534 0 0 1.51534 0 3.38461V20.6154C0 22.4847 1.51534 24 3.38461 24H15.6923C17.5616 24 19.0769 22.4847 19.0769 20.6154V7.03712C19.0769 6.56848 18.9241 6.11262 18.6416 5.73871L14.952 0.855436C14.5449 0.316674 13.9087 0 13.2335 0H3.38462ZM1.84615 3.38461C1.84615 2.53495 2.53495 1.84615 3.38462 1.84615H12.3077V7.2579C12.3077 7.7677 12.721 8.18098 13.2308 8.18098H17.2308V20.6154C17.2308 21.4651 16.542 22.1538 15.6923 22.1538H3.38461C2.53495 22.1538 1.84615 21.4651 1.84615 20.6154V3.38461Z"
-                    fill="#FFD600"
-                  />
-                </svg>
-              ),
-            },
-            {
-              to: "/admin/jadwal",
-              label: "Jadwal",
-              icon: (
-                <svg stroke="currentColor" width="30" height="20" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M5.50383 0C6.07949 0 6.54615 0.466663 6.54615 1.04232V3.35993C10.476 3.00995 14.4293 3.00995 18.3591 3.35994V1.04232C18.3591 0.466663 18.8258 0 19.4014 0C19.9771 0 20.4438 0.466663 20.4438 1.04232V3.56673C22.5187 3.86013 24.158 5.50133 24.4355 7.59482L24.5558 8.50227C25.0617 12.319 25.018 16.1886 24.426 19.9929C24.1328 21.8775 22.6017 23.325 20.7037 23.5122L19.0457 23.6757C14.6609 24.1081 10.2443 24.1081 5.8595 23.6757L4.20151 23.5122C2.30346 23.325 0.772412 21.8775 0.479159 19.9929C-0.112822 16.1886 -0.156517 12.319 0.349406 8.50227L0.469692 7.59482C0.747195 5.50131 2.38649 3.86008 4.46151 3.56672V1.04232C4.46151 0.466663 4.92817 0 5.50383 0ZM6.1225 5.49346C10.3324 5.0783 14.5728 5.0783 18.7827 5.49346L20.0411 5.61755C21.2456 5.73634 22.2099 6.66883 22.3689 7.86875L22.4892 8.7762C22.5312 9.09322 22.5693 9.41062 22.6033 9.72834H2.3019C2.33593 9.41062 2.37395 9.09322 2.41597 8.7762L2.53626 7.86875C2.69531 6.66883 3.65956 5.73634 4.86414 5.61755L6.1225 5.49346ZM2.1362 11.813C1.99975 14.437 2.13418 17.0707 2.53901 19.6724C2.68611 20.6177 3.45406 21.3437 4.4061 21.4376L6.06409 21.6011C10.3128 22.0201 14.5924 22.0201 18.8411 21.6011L20.4991 21.4376C21.4511 21.3437 22.2191 20.6177 22.3662 19.6724C22.771 17.0707 22.9054 14.437 22.769 11.813H2.1362Z"
-                    fill="#11CDEF"
-                  />
-                </svg>
-              ),
-            },
-            {
-              to: "/admin/konsultasi",
-              label: "Konsultasi",
-              icon: (
-                <svg  stroke="currentColor" width="30" height="20" viewBox="0 0 29 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M7.94972 8.51896C6.79432 8.51896 5.85769 9.4556 5.85769 10.611C5.85769 11.7664 6.79432 12.703 7.94972 12.703C9.10511 12.703 10.0417 11.7664 10.0417 10.611C10.0417 9.4556 9.10511 8.51896 7.94972 8.51896Z"
-                    fill="#2DCE89"
-                  />
-                  <path
-                    d="M14.6442 8.51896C13.4888 8.51896 12.5522 9.4556 12.5522 10.611C12.5522 11.7664 13.4888 12.703 14.6442 12.703C15.7996 12.703 16.7362 11.7664 16.7362 10.611C16.7362 9.4556 15.7996 8.51896 14.6442 8.51896Z"
-                    fill="#2DCE89"
-                  />
-                  <path
-                    d="M19.2467 10.611C19.2467 9.4556 20.1833 8.51896 21.3387 8.51896C22.4941 8.51896 23.4307 9.4556 23.4307 10.611C23.4307 11.7664 22.4941 12.703 21.3387 12.703C20.1833 12.703 19.2467 11.7664 19.2467 10.611Z"
-                    fill="#2DCE89"
-                  />
-                  <path
-                    d="M21.5073 0.306135C16.9982 -0.078397 12.4656 -0.100713 7.95297 0.239402L7.62957 0.263776C3.32617 0.588121 0 4.17442 0 8.49002V22.7448C0 23.1864 0.232075 23.5955 0.611122 23.8221C0.990169 24.0488 1.46041 24.0595 1.84942 23.8504L8.39462 20.333C8.69907 20.1693 9.03932 20.0837 9.38495 20.0837H24.4081C26.3028 20.0837 27.9265 18.7291 28.2661 16.8651C28.9545 13.0873 29.0088 9.22131 28.427 5.42568L28.2556 4.30716C27.9435 2.27077 26.2775 0.712939 24.2248 0.537884L21.5073 0.306135ZM8.14164 2.74274C12.5204 2.41271 16.9186 2.43437 21.294 2.80749L24.0115 3.03924C24.9091 3.11579 25.6376 3.79702 25.7741 4.68752L25.9456 5.80605C26.4852 9.32616 26.4347 12.9115 25.7964 16.4151C25.6742 17.0858 25.0899 17.5733 24.4081 17.5733H9.38495C8.62456 17.5733 7.87601 17.7617 7.20622 18.1216L2.51044 20.6452V8.49002C2.51044 5.4877 4.82442 2.99276 7.81825 2.76711L8.14164 2.74274Z"
-                    fill="#2DCE89"
-                  />
-                </svg>
-              ),
-            },
-          ].map((item, index) => (
-            <Link key={index} to={item.to} className="flex items-center px-4 py-2 mt-5 text-gray-500 transition-colors duration-300 transform rounded-md  hover:bg-primary  dark:hover:text-gray-200 hover:text-gray-700"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {item.icon && 
-              <span className="mr-2" style={{ fill: index === hoveredIndex ? 'white' : 'currentcolor'}}>
-                {item.icon}
-                </span>}
-              <span className="font-medium">{item.label}</span>
-            </Link>
-          ))}
-        </nav>
+              <Link
+                className="flex items-center px-4 py-2 mt-5  text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin/data_pasien"
+              >
+                <img
+                  className="w-auto h-[16px]"
+                  src="/data_pasien.svg"
+                  alt=""
+                />
+                <span className="mx-4 font-medium">Data Pasien</span>
+              </Link>
 
-        <Link to="/logout" className="flex items-center px-4 -mx-2 mt-5 text-gray-500 ">
-          <svg width="30" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M13.5484 21.6774C12.907 21.6774 12.3871 22.1973 12.3871 22.8387C12.3871 23.4801 12.907 24 13.5484 24H22.8387C24.3352 24 25.5484 22.7868 25.5484 21.2903V2.70968C25.5484 1.21316 24.3352 0 22.8387 0H13.5484C12.907 0 12.3871 0.519929 12.3871 1.16129C12.3871 1.80265 12.907 2.32258 13.5484 2.32258L22.8387 2.32258C23.0525 2.32258 23.2258 2.49589 23.2258 2.70968L23.2258 21.2903C23.2258 21.5041 23.0525 21.6774 22.8387 21.6774H13.5484Z"
-              fill="black"
-            />
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M17.4241 15.6623C18.4931 15.6623 19.3596 14.7957 19.3596 13.7268V10.2576C19.3596 9.18867 18.4931 8.32212 17.4241 8.32212H10.282C10.2719 8.20843 10.2614 8.09476 10.2503 7.98114L10.1667 7.12041C10.039 5.80721 8.64455 5.02077 7.45473 5.59098C4.92431 6.80367 2.63357 8.46315 0.692679 10.4896L0.53908 10.65C-0.179693 11.4004 -0.179693 12.5839 0.539079 13.3344L0.692679 13.4948C2.63357 15.5212 4.92432 17.1807 7.45473 18.3934C8.64454 18.9636 10.039 18.1772 10.1667 16.864L10.2503 16.0032C10.2614 15.8896 10.2719 15.776 10.282 15.6623H17.4241ZM9.20533 13.3397C8.79289 13.3397 8.42827 13.5554 8.22206 13.8828C8.12164 14.0423 8.05879 14.2282 8.04629 14.4287C8.0182 14.8791 7.98231 15.3291 7.93863 15.7786L7.91435 16.0284C6.31014 15.2017 4.82038 14.1721 3.48136 12.9661C3.13397 12.6532 2.79673 12.3284 2.47026 11.9922C4.0551 10.3601 5.89396 8.9972 7.91435 7.95599L7.93863 8.20581C7.98231 8.65528 8.0182 9.10531 8.04629 9.5557C8.08447 10.1678 8.59204 10.6447 9.20533 10.6447H17.037V13.3397H9.20533Z"
-              fill="black"
-            />
-          </svg>
+              <Link
+                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin/data_antrian"
+              >
+                <img
+                  className="w-auto h-[16px]"
+                  src="/data_antrian.svg"
+                  alt=""
+                />
+                <span className="mx-4 font-medium">Data Antrian</span>
+              </Link>
 
-          <span className="mx-2 font-medium">Log Out</span>
-        </Link>
-      </div>
-    </aside>
+              <Link
+                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin/data_program"
+              >
+                <img
+                  className="w-auto h-[16px]"
+                  src="/data_program.svg"
+                  alt=""
+                />
+                <span className="mx-4 font-medium">Data Program</span>
+              </Link>
+
+              <Link
+                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin/jadwal"
+              >
+                <img className="w-auto h-[16px]" src="/jadwal.svg" alt="" />
+                <span className="mx-4 font-medium">Jadwal</span>
+              </Link>
+
+              <Link
+                className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+                to="/admin/konsultasi"
+              >
+                <img className="w-auto h-[16px]" src="/konsultasi.svg" alt="" />
+                <span className="mx-4 font-medium">Konsultasi</span>
+              </Link>
+            </div>
+
+            <div className="mt-24 ">
+              <Link
+                className="bg-[#21695C] text-white flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-[#41d8bc]
+                 border-2  hover:text-white"
+                to="/login"
+              >
+                <img className="w-auto h-[16px]" src="/logout.svg" alt="" />
+                <span className="mx-4 font-medium">Data Pasien</span>
+              </Link>
+            </div>
+          </nav>
+        </div>
+      </aside>
+    </div>
   );
 };
 
