@@ -1,25 +1,19 @@
-.box {
-    z-index: 99;
-    }
-    
-    .popupOverlay {
-        position: fixed;
-        top: 24px;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 99;
-      }
-    
-      .popupContent {
-        background-color: white;
-        width: 45%;
-        height: 384px;
-        border-radius: 8px;
-        position: relative;
-      }
-    
+.popupOverlay {
+  position: fixed;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 384px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popupContent {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+}

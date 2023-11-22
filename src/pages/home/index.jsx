@@ -1,5 +1,5 @@
 import React from "react";
-import PopupDownload from "../popup_download";
+// import PopupDownload from "../popup_download";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import Testimonial from "../testimonial";
@@ -21,7 +21,13 @@ const Home = () => {
             ketemu konsultasi yang sesuai? Nggak perlu khawatir lagi. Konsultasi
             langsung tinggal sat-set!
           </p>
-          <PopupDownload />
+          <a
+            href="https://play.google.com/store"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block rounded-full border-2 border-[#21695C] px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-[#21695C] hover:bg-[#21695C] hover:text-white focus:border-[#21695C] focus:text-black focus:outline-none focus:ring-0 active:border-[#21695C] active:text-white dark:hover:bg-white dark:hover:bg-white"
+                >
+                Download Sekarang</a>
           <div className='grid grid-cols-4 gap-4 pt-8'>
             <div className="rounded-md bg-primary-100 text-primary flex items-center">
               <div className=' flex justify-center max-h-10 items-center w-3/5'>
