@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import Layanan from "./pages/layanan";
-import Blog from "./pages/blog";
-import Kontak from "./pages/kontak";
+import Footer from "./pages/footer";
 import Tentang_kami from "./pages/tentang_kami";
 import Login from "./pages/login";
+import Navbar from "./pages/navbar";
 import Admin from "./pages/private/dashboard";
 import DataPasien from "./pages/private/data_pasien";
 import DataAntrian from "./pages/private/data_antrian";
@@ -12,6 +12,7 @@ import DataProgram from "./pages/private/data_program";
 import Jadwal from "./pages/private/jadwal";
 import Konsultasi from "./pages/private/konsultasi";
 import NotFound from "./pages/404";
+import Testimonial from "./pages/testimonial";
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/layanan" element={<Layanan />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/kontak" element={<Kontak />} />
+        <Route path="/footer" element={<Footer />} />
         <Route path="/tentang_kami" element={<Tentang_kami />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/navbar" element={<Navbar />} />
+        <Route path="/testimonial" element={<Testimonial />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/data_pasien" element={<DataPasien />} />
         <Route path="/admin/data_antrian" element={<DataAntrian />} />
