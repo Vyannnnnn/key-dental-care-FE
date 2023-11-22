@@ -75,7 +75,7 @@ const Navigation = () => {
 
             <div className="mt-24 ">
               <Link
-                className="bg-[#21695C] text-white flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-[#41d8bc]
+                className="bg-[#21695C] text-white flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-[#165549]
                  border-2  hover:text-white"
                 to="/login"
               >

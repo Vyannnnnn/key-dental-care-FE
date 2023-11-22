@@ -2,9 +2,25 @@ import React from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
+import { Link } from "react-router-dom";
+import BarChartComponent from "../../../components/private/BarChartComponent";
 // import DashboardCard from "../../../components/private/DashboardCard";
 
 const Dashboard = () => {
+  const data = [
+    { name: "Jan", value: 30 },
+    { name: "Feb", value: 40 },
+    { name: "Mar", value: 25 },
+    { name: "Apr", value: 35 },
+    { name: "May", value: 15 },
+    { name: "Jun", value: 25 },
+    { name: "Jul", value: 25 },
+    { name: "Aug", value: 45 },
+    { name: "Sep", value: 25 },
+    { name: "Okt", value: 55 },
+    { name: "Nov", value: 67 },
+    { name: "Dec", value: 88 },
+  ];
   return (
     <div className="layout flex">
       <Navigation />
@@ -15,19 +31,84 @@ const Dashboard = () => {
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                  <div className="overflow-hidden md:rounded-lg">
                     <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-green-500"></div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-green-500"></div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-green-500"></div>
+                      <div className="rounded-lg w-[300px] h-[123px] bg-[#F5365C] p-4">
+                        <div className="flex justify-between text-white w-full px-[12px]">
+                          <div>
+                            <p className="text-xs">Pasien</p>
+                            <p className="text-xl">120</p>
+                          </div>
+                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                        </div>
+                        <div className="h-1/2 flex items-end">
+                          <Link className="text-white" to="">
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
+                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FB6340] p-4">
+                        <div className="flex justify-between text-white w-full px-[12px]">
+                          <div>
+                            <p className="text-xs">Antrian</p>
+                            <p className="text-xl">10</p>
+                          </div>
+                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                        </div>
+                        <div className="h-1/2 flex items-end">
+                          <Link className="text-white" to="">
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
+                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FFD600] p-4">
+                        <div className="flex justify-between text-white w-full px-[12px]">
+                          <div>
+                            <p className="text-xs">Program</p>
+                            <p className="text-xl">24</p>
+                          </div>
+                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                        </div>
+                        <div className="h-1/2 flex items-end">
+                          <Link className="text-white" to="">
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                     <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-green-500"></div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-green-500"></div>
+                      <div className="rounded-lg w-[300px] h-[123px] bg-[#11CDEF] p-4">
+                        <div className="flex justify-between text-white w-full px-[12px]">
+                          <div>
+                            <p className="text-xs">Jadwal</p>
+                            <p className="text-xl">1</p>
+                          </div>
+                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                        </div>
+                        <div className="h-1/2 flex items-end">
+                          <Link className="text-white" to="">
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
+                      <div className="rounded-lg w-[300px] h-[123px] bg-[#2DCE89] p-4">
+                        <div className="flex justify-between text-white w-full px-[12px]">
+                          <div>
+                            <p className="text-xs">Konsultasi</p>
+                            <p className="text-xl">5</p>
+                          </div>
+                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                        </div>
+                        <div className="h-1/2 flex items-end">
+                          <Link className="text-white" to="">
+                            Show More
+                          </Link>
+                        </div>
+                      </div>
                       <div className="rounded-lg w-[300px] h-[123px] bg-transparent"></div>
                     </div>
-                    <div className="w-full bg-red-500 flex flex-wrap gap-8 justify-start p-8">
-                      <div className="rounded-lg w-full h-[223px] bg-green-500"></div>
+                    <div className="w-full  justify-center p-8 bg-gray-100 rounded-lg">
+                      <BarChartComponent data={data} />
                     </div>
                   </div>
                 </div>
