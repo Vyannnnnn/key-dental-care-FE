@@ -23,7 +23,7 @@ const LayananCard = ({ url, title, description }) => {
   
       {isPopupOpen && (
         <div className={`${styles.popupOverlay} ${styles.popupContent}`}>
-          <div className="flex bg-slate-100 rounded-lg">
+          <div className="flex rounded-lg bg-gray-50">
             <div className="flex flex-col m-10 w-9/12">
               <h1 className="font-sans font-bold text-2xl pb-4">Solusi Konsultasi Simple Anti Drama</h1>
               <ul className="list-disc pl-8 pb-6 font-light font-sans text-lg">
