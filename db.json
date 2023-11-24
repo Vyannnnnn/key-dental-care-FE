@@ -27,7 +27,7 @@
     ],
     "patients": [
         {
-            "id": 3,
+            "id": 1,
             "Nama": "Ella Fitriyani Rosyidah",
             "Kode_Antrian": "110123-1",
             "Pelayanan": "Tambal Gigi Dewasa",
@@ -43,7 +43,7 @@
             "Hari_Tanggal": "11-01-2023"
         },
         {
-            "id": 1,
+            "id": 3,
             "Nama": "Rosyidah",
             "Kode_Antrian": "110123-3",
             "Pelayanan": "Tambal Gigi Dewasa",
