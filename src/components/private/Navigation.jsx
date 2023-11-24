@@ -12,7 +12,6 @@ const Navigation = () => {
           <nav className="flex flex-col">
             <div>
               <Link
-                // bg-gray-100
                 className="flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
                 to="/admin"
               >
@@ -80,7 +79,7 @@ const Navigation = () => {
                 to="/login"
               >
                 <img className="w-auto h-[16px]" src="/logout.svg" alt="" />
-                <span className="mx-4 font-medium">Data Pasien</span>
+                <span className="mx-4 font-medium">Log Out</span>
               </Link>
             </div>
           </nav>

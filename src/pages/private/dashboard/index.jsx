@@ -1,122 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import { Link } from "react-router-dom";
-import BarChartComponent from "../../../components/private/BarChartComponent";
-// import DashboardCard from "../../../components/private/DashboardCard";
+import Table from "../../../components/private/Table";
+import Pagination from "../../../components/private/Pagination";
 
 const Dashboard = () => {
-  const data = [
-    { name: "Jan", value: 30 },
-    { name: "Feb", value: 40 },
-    { name: "Mar", value: 25 },
-    { name: "Apr", value: 35 },
-    { name: "May", value: 15 },
-    { name: "Jun", value: 25 },
-    { name: "Jul", value: 25 },
-    { name: "Aug", value: 45 },
-    { name: "Sep", value: 25 },
-    { name: "Okt", value: 55 },
-    { name: "Nov", value: 67 },
-    { name: "Dec", value: 88 },
+  const [Queue, setQueue] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/queue")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Patient Data:", data);
+        setQueue(data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama", field: "Nama" },
+    { display: "Kode Antrian", field: "Kode_Antrian" },
+    { display: "Pelayanan", field: "Pelayanan" },
+    { display: "No Telepon", field: "No_Telepon" },
+    { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
+
   return (
     <div className="layout flex">
       <Navigation />
-      <main className="flex flex-col grow">
-        <Navbar page="Dashboard" breadcrumb="" showCreateButton={false} />
-        <div className="content grow object-contain">
-          <section className="container px-[39px] py-[39px] mx-auto">
-            <div className="flex flex-col">
-              <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden md:rounded-lg">
-                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#F5365C] p-4">
-                        <div className="flex justify-between text-white w-full px-[12px]">
-                          <div>
-                            <p className="text-xs">Pasien</p>
-                            <p className="text-xl">120</p>
-                          </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
-                        </div>
-                        <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FB6340] p-4">
-                        <div className="flex justify-between text-white w-full px-[12px]">
-                          <div>
-                            <p className="text-xs">Antrian</p>
-                            <p className="text-xl">10</p>
-                          </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
-                        </div>
-                        <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FFD600] p-4">
-                        <div className="flex justify-between text-white w-full px-[12px]">
-                          <div>
-                            <p className="text-xs">Program</p>
-                            <p className="text-xl">24</p>
-                          </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
-                        </div>
-                        <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#11CDEF] p-4">
-                        <div className="flex justify-between text-white w-full px-[12px]">
-                          <div>
-                            <p className="text-xs">Jadwal</p>
-                            <p className="text-xl">1</p>
-                          </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
-                        </div>
-                        <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#2DCE89] p-4">
-                        <div className="flex justify-between text-white w-full px-[12px]">
-                          <div>
-                            <p className="text-xs">Konsultasi</p>
-                            <p className="text-xl">5</p>
-                          </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
-                        </div>
-                        <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
-                            Show More
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-transparent"></div>
-                    </div>
-                    <div className="w-full  justify-center p-8 bg-gray-100 rounded-lg">
-                      <BarChartComponent data={data} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-        <Footer />
+      <main className="flex justify-center items-center grow">
+        <h1 className="text-4xl text-red-600 font-bold">Development Mode</h1>
       </main>
     </div>
   );

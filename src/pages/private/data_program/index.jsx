@@ -1,69 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
+import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
+import { ScaleLoader } from "react-spinners";
 
-const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama Program",
-    "Harga",
-    "Deskripsi",
-    "Thumbnail",
-    "Aksi",
-  ];
-  const td = [
-    "1",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "2",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "3",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "4",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "5",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "6",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "7",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
+const DataProgram = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [Programs, setPrograms] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/programs");
+        const data = await response.json();
+        setPrograms(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama Program", field: "Nama_Program" },
+    { display: "Harga", field: "Harga" },
+    { display: "Deskripsi", field: "Deskripsi" },
+    { display: "Thumbnail", field: "Thumbnail" },
   ];
 
   return (
@@ -80,13 +50,27 @@ const DataPasien = () => {
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
-                  </div>
+                  {isLoading ? (
+                    <div className="flex items-center justify-center h-40">
+                      <div className="flex justify-around mt-8">
+                        <ScaleLoader
+                          color="#21695c"
+                          loading={isLoading}
+                          height={30}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <Table
+                      headers={headers}
+                      data={Programs}
+                      onActionButtonClick={(row) => moveToPatients(row)}
+                      actionButtonLabel="Accept"
+                    />
+                  )}
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
@@ -95,12 +79,4 @@ const DataPasien = () => {
   );
 };
 
-const ReusableButton = () => {
-  return (
-    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
-      ...
-    </button>
-  );
-};
-
-export default DataPasien;
+export default DataProgram;

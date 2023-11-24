@@ -1,91 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
+import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
+import { ScaleLoader } from "react-spinners";
 
-const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama",
-    "Umur",
-    "Jenis Kelamin",
-    "Alamat",
-    "No Telepon",
-    "Aksi",
-  ];
-  const td = [
-    "1",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "2",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "3",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "4",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "5",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "6",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "7",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "8",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "9",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "10",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
+const DataAntrian = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [Queue, setQueue] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/queue");
+        const data = await response.json();
+        setQueue(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama", field: "Nama" },
+    { display: "Kode Antrian", field: "Kode_Antrian" },
+    { display: "Pelayanan", field: "Pelayanan" },
+    { display: "No Telepon", field: "No_Telepon" },
+    { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
 
   return (
@@ -102,13 +51,27 @@ const DataPasien = () => {
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
-                  </div>
+                  {isLoading ? (
+                    <div className="flex items-center justify-center h-40">
+                      <div className="flex justify-around mt-8">
+                        <ScaleLoader
+                          color="#21695c"
+                          loading={isLoading}
+                          height={30}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <Table
+                      headers={headers}
+                      data={Queue}
+                      onActionButtonClick={(row) => moveToPatients(row)}
+                      actionButtonLabel="Accept"
+                    />
+                  )}
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
@@ -117,12 +80,4 @@ const DataPasien = () => {
   );
 };
 
-const ReusableButton = () => {
-  return (
-    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
-      ...
-    </button>
-  );
-};
-
-export default DataPasien;
+export default DataAntrian;
