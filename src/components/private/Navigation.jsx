@@ -80,7 +80,7 @@ const Navigation = () => {
                 to="/login"
               >
                 <img className="w-auto h-[16px]" src="/logout.svg" alt="" />
-                <span className="mx-4 font-medium">Data Pasien</span>
+                <span className="mx-4 font-medium">Log Out</span>
               </Link>
             </div>
           </nav>

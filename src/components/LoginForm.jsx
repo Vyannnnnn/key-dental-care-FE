@@ -57,7 +57,7 @@ const LoginForm = () => {
         <div className="flex justify-end mt-6">
           <a
             href="/admin"
-            className="text-center w-full px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-[#21695C] rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            className="text-center w-full px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-[#21695C] rounded-md hover:bg-[#165549] focus:outline-none focus:bg-gray-600"
           >
             Login
           </a>

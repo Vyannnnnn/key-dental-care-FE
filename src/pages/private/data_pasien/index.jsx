@@ -1,91 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
+import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
-import { useState } from "react";
 
 const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama",
-    "Kode Antrian",
-    "Pelayanan",
-    "No Telepon",
-    "Aksi",
-  ];
-  const td = [
-    "1",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "2",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "3",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "4",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "5",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "6",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "7",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "8",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "9",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
-    "10",
-    "Ella Fitriyani Rosyidah",
-    "231112-01",
-    "Tambal Gigi Dewasa",
-    "081392307589",
-    "",
-    // <ReusableButton />,
+  const [Queue, setQueue] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/patients")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Patient Data:", data);
+        setQueue(data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama", field: "Nama" },
+    { display: "Kode Antrian", field: "Kode_Antrian" },
+    { display: "Pelayanan", field: "Pelayanan" },
+    { display: "No Telepon", field: "No_Telepon" },
+    { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
 
   return (
@@ -93,8 +32,8 @@ const DataPasien = () => {
       <Navigation />
       <main className="flex flex-col grow">
         <Navbar
-          page="Data Pasien"
-          breadcrumb=" Data Pasien"
+          page="Data Antrian"
+          breadcrumb=" Data Antrian"
           showCreateButton={false}
         />
         <div className="content grow object-contain">
@@ -103,45 +42,20 @@ const DataPasien = () => {
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                   <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
+                    <Table
+                      headers={headers}
+                      data={Queue}
+                      onActionButtonClick={(row) => moveToPatients(row)}
+                      actionButtonLabel="Detail"
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
       </main>
-    </div>
-  );
-};
-
-const ReusableButton = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div className="relative">
-      <button
-        className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        ...
-      </button>
-
-      {isHovered && (
-        <div
-          className="absolute top-full left-0 z-50 bg-gray-800 p-4"
-          onClick={() => {
-            console.log("Div clicked!");
-          }}
-        >
-          <ul>
-            <li>Show</li>
-          </ul>
-        </div>
-      )}
     </div>
   );
 };

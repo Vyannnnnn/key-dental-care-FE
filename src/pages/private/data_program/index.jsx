@@ -1,69 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
+import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
 
-const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama Program",
-    "Harga",
-    "Deskripsi",
-    "Thumbnail",
-    "Aksi",
-  ];
-  const td = [
-    "1",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "2",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "3",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "4",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "5",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "6",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "7",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
+const DataProgram = () => {
+  const [Queue, setQueue] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/programs")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Patient Data:", data);
+        setQueue(data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama Program", field: "Nama_Program" },
+    { display: "Harga", field: "Harga" },
+    { display: "Deskripsi", field: "Deskripsi" },
+    { display: "Thumbnail", field: "Thumbnail" },
   ];
 
   return (
@@ -71,8 +31,8 @@ const DataPasien = () => {
       <Navigation />
       <main className="flex flex-col grow">
         <Navbar
-          page="Data Program"
-          breadcrumb=" Data Program"
+          page="Data Antrian"
+          breadcrumb=" Data Antrian"
           showCreateButton={true}
         />
         <div className="content grow object-contain">
@@ -81,12 +41,16 @@ const DataPasien = () => {
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                   <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
+                    <Table
+                      headers={headers}
+                      data={Queue}
+                      onActionButtonClick={(row) => moveToPatients(row)}
+                      actionButtonLabel="Edit"
+                    />
                   </div>
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
@@ -95,12 +59,4 @@ const DataPasien = () => {
   );
 };
 
-const ReusableButton = () => {
-  return (
-    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
-      ...
-    </button>
-  );
-};
-
-export default DataPasien;
+export default DataProgram;
