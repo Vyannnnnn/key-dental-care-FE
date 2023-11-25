@@ -9,7 +9,7 @@ const Navbar = (props) => {
         <p>Drg Rima</p>
         <div className="h-[36px] w-[36px] bg-white rounded-full ml-[13px]"></div>
       </div>
-      <div className="px-[31px] pt-[31px]">
+      <div className="px-[31px] pt-[31px] bg-[#f8fafc]">
         <p className="text-[14px] text-black">
           Dashboard /<span className="text-slate-700">{props.breadcrumb}</span>
         </p>
