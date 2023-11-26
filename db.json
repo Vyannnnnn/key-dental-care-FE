@@ -110,5 +110,21 @@
             "Mulai_Pukul": "16.00",
             "Sampai_Pukul": "21.00"
         }
+    ],
+    "chats": [
+        {
+            "id": 1,
+            "avatar": "url gambar",
+            "name": "Fitriyani Rosyidah",
+            "message": "hallo dok",
+            "time": "21.00"
+        },
+        {
+            "id": 2,
+            "avatar": "url gambar",
+            "name": "Fitriyani Rosyidah",
+            "message": "hallo dokter",
+            "time": "22.00"
+        }
     ]
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import CreateButton from "./CreateButton";
-import SearchButton from "./Searchbutton";
+import SearchButton from "./FilterButton";
 
 const Navbar = (props) => {
   return (
@@ -17,11 +17,10 @@ const Navbar = (props) => {
           <p className="text-[32px]">{props.page}</p>
           <div className="flex items-center">
             {props.showCreateButton && <CreateButton />}
+            {props.showSearchButton && <SearchButton />}
           </div>
         </div>
-        <div className="flex items-center mt-[27px]">
-          {props.showSearchButton && <SearchButton />}
-        </div>
+        <div className="flex items-center mt-[27px]"></div>
       </div>
     </nav>
   );

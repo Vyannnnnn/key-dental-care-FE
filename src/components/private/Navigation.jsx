@@ -27,8 +27,10 @@ const Navigation = () => {
           <nav className="flex flex-col">
             <div>
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isDashboard ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md hover:underline underline-offset-4  ${
+                  isDashboard
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin"
               >
@@ -43,8 +45,10 @@ const Navigation = () => {
               </Link>
 
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isData_pasien ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md hover:underline underline-offset-4 ${
+                  isData_pasien
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin/data_pasien"
               >
@@ -60,8 +64,10 @@ const Navigation = () => {
               </Link>
 
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isData_antrian ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md hover:underline underline-offset-4   ${
+                  isData_antrian
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin/data_antrian"
               >
@@ -77,8 +83,10 @@ const Navigation = () => {
               </Link>
 
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isData_program ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md hover:underline underline-offset-4   ${
+                  isData_program
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin/data_program"
               >
@@ -94,8 +102,10 @@ const Navigation = () => {
               </Link>
 
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isJadwal ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md  hover:underline underline-offset-4  ${
+                  isJadwal
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin/jadwal"
               >
@@ -111,8 +121,10 @@ const Navigation = () => {
               </Link>
 
               <Link
-                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-lg    ${
-                  isKonsultasi ? "bg-[#21695c] text-white" : ""
+                className={`flex items-center px-4 py-2 text-gray-600 transition-colors duration-300 transform rounded-md hover:underline underline-offset-4  ${
+                  isKonsultasi
+                    ? "bg-[#21695c] text-white hover:bg-[#21695c]"
+                    : "hover:bg-[#e0e0e0] hover:text-[#21695c]"
                 }`}
                 to="/admin/konsultasi"
               >
@@ -130,7 +142,7 @@ const Navigation = () => {
 
             <div className="mt-24 ">
               <Link
-                className="bg-[#21695C] text-white flex items-center px-4 py-2 mt-28 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-[#165549] border-2  hover:text-white"
+                className="bg-[#21695C] text-white flex items-center px-4 py-2 mt-28 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#165549] border-2  hover:text-white"
                 to="/login"
               >
                 <img className="w-auto h-[16px]" src="/logout.svg" alt="" />
