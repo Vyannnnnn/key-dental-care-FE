@@ -2,27 +2,21 @@ import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import Table from "../../../components/private/Table";
-import Pagination from "../../../components/private/Pagination";
+import ChatContent from "../../../components/private/ChatContent";
 import { ScaleLoader } from "react-spinners";
 
-const DataProgram = () => {
+const Konsultasi = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [Programs, setPrograms] = useState([]);
+  const [chats, setChats] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/programs");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
+        const response = await fetch("http://localhost:8000/chats");
         const data = await response.json();
-        setPrograms(data);
+        setChats(data);
       } catch (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("Error fetching data:", error);
       } finally {
         setTimeout(() => {
           setIsLoading(false);
@@ -33,22 +27,15 @@ const DataProgram = () => {
     fetchData();
   }, []);
 
-  const headers = [
-    { display: "No", field: "id" },
-    { display: "Nama Program", field: "Nama_Program" },
-    { display: "Harga", field: "Harga" },
-    { display: "Deskripsi", field: "Deskripsi" },
-    { display: "Thumbnail", field: "Thumbnail" },
-  ];
-
   return (
     <div className="layout flex">
       <Navigation />
       <main className="flex flex-col grow">
         <Navbar
-          page="Data Program"
-          breadcrumb=" Data Program"
-          showCreateButton={true}
+          page="Konsultasi"
+          breadcrumb=" Konsultasi"
+          showCreateButton={false}
+          showSearchButton={true}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">
@@ -65,14 +52,10 @@ const DataProgram = () => {
                         />
                       </div>
                     </div>
+                  ) : chats && chats.length > 0 ? (
+                    <ChatContent data={chats} />
                   ) : (
-                    <Table
-                      headers={headers}
-                      data={Programs}
-                      onActionButtonClick={(row) => moveToPatients(row)}
-                      actionButtonLabel="Accept"
-                      dataType="programs"
-                    />
+                    <p className="text-center">Tidak ada chat</p>
                   )}
                 </div>
               </div>
@@ -85,4 +68,4 @@ const DataProgram = () => {
   );
 };
 
-export default DataProgram;
+export default Konsultasi;

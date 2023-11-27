@@ -12,8 +12,16 @@ const Konsultasi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/chats");
+        const response = await fetch("http://localhost:3000/api/chats");
+        console.log("Response:", response);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Data:", data);
+
         setChats(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -26,6 +34,8 @@ const Konsultasi = () => {
 
     fetchData();
   }, []);
+
+  console.log("Chatsnya adalah:", chats);
 
   return (
     <div className="layout flex">
@@ -53,7 +63,7 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <ChatContent data={chats} />
+                    <ChatContent data={chats && chats.chats} dataType="chats" />
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}

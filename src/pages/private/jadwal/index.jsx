@@ -6,18 +6,23 @@ import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
 import { ScaleLoader } from "react-spinners";
 
-const DataProgram = () => {
+const Jadwal = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Timetable, setTimetable] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/timetable");
+        const response = await fetch("http://localhost:3000/api/timetable");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
         setTimetable(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       } finally {
         setTimeout(() => {
           setIsLoading(false);
@@ -40,7 +45,11 @@ const DataProgram = () => {
     <div className="layout flex">
       <Navigation />
       <main className="flex flex-col grow">
-        <Navbar page="Jadwal" breadcrumb="Jadwal" showCreateButton={false} />
+        <Navbar
+          page="Data Pasien"
+          breadcrumb=" Data Pasien"
+          showCreateButton={false}
+        />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">
             <div className="flex flex-col">
@@ -62,6 +71,7 @@ const DataProgram = () => {
                       data={Timetable}
                       onActionButtonClick={(row) => moveToPatients(row)}
                       actionButtonLabel="Accept"
+                      dataType="timetable"
                     />
                   )}
                 </div>
@@ -75,4 +85,4 @@ const DataProgram = () => {
   );
 };
 
-export default DataProgram;
+export default Jadwal;

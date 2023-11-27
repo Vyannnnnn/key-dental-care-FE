@@ -13,11 +13,16 @@ const DataAntrian = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/queue");
+        const response = await fetch("http://localhost:3000/api/queue");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
         setQueue(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       } finally {
         setTimeout(() => {
           setIsLoading(false);
@@ -67,6 +72,7 @@ const DataAntrian = () => {
                       data={Queue}
                       onActionButtonClick={(row) => moveToPatients(row)}
                       actionButtonLabel="Accept"
+                      dataType="queue"
                     />
                   )}
                 </div>

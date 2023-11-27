@@ -114,17 +114,38 @@
     "chats": [
         {
             "id": 1,
-            "avatar": "url gambar",
-            "name": "Fitriyani Rosyidah",
+            "avatar": "https://images.unsplash.com/photo-1682687220945-922198770e60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8",
+            "name": "Dewi Fitriyani",
             "message": "hallo dok",
-            "time": "21.00"
+            "time": "21.00 PM"
         },
         {
             "id": 2,
-            "avatar": "url gambar",
-            "name": "Fitriyani Rosyidah",
+            "avatar": "https://images.unsplash.com/photo-1700902741852-ecf2bd2c26eb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8",
+            "name": "Joko",
             "message": "hallo dokter",
-            "time": "22.00"
+            "time": "11.00 AM"
+        },
+        {
+            "id": 3,
+            "avatar": "https://images.unsplash.com/photo-1700902741852-ecf2bd2c26eb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8",
+            "name": "Jaka",
+            "message": "hallo kak",
+            "time": "22.00 PM"
+        },
+        {
+            "id": 4,
+            "avatar": "https://images.unsplash.com/photo-1700902741852-ecf2bd2c26eb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0fHx8ZW58MHx8fHx8",
+            "name": "Rosyidah",
+            "message": "hallo",
+            "time": "02.00 AM"
+        },
+        {
+            "id": 5,
+            "avatar": "https://images.unsplash.com/photo-1682687220945-922198770e60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8",
+            "name": "Fitriyani",
+            "message": "pagi dok",
+            "time": "17.00 PM"
         }
     ]
 }

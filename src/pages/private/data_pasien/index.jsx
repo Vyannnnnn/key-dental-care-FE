@@ -13,11 +13,16 @@ const DataPasien = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/patients");
+        const response = await fetch("http://localhost:3000/api/patients");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
         setPatients(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       } finally {
         setTimeout(() => {
           setIsLoading(false);
@@ -67,6 +72,7 @@ const DataPasien = () => {
                       data={Patients}
                       onActionButtonClick={(row) => moveToPatients(row)}
                       actionButtonLabel="Accept"
+                      dataType="patients"
                     />
                   )}
                 </div>
