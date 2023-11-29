@@ -30,11 +30,11 @@ const Footer = () => {
             </h1>
               <div className="flex items-center pb-2">
                 <img className="w-9 h-9" src="/assets/call.svg"/>
-                <p className="text-lg font-sans pl-2">082289494199 - Rima</p>
+                <p className="text-lg font-sans pl-2">082289494199 - Drg Rima</p>
               </div>
               <div className="flex items-center pb-2">
                 <img className="w-9 h-9" src="/assets/email.svg"/>
-                <p className="text-lg font-sans pl-2">service.dencare@gmail.com</p>
+                <p className="text-lg font-sans pl-2">rimayunita.ry@gmail.com</p>
               </div>
               <div className="flex items-center pb-2">
                 <img className="w-9 h-9" src="/assets/location.svg"/>

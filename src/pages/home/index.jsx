@@ -1,5 +1,4 @@
 import React from "react";
-// import PopupDownload from "../popup_download";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import Testimonial from "../testimonial";

@@ -30,7 +30,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex flex-grow items-center justify-center space-x-10">
-          <a href="/" className="text-gray-500 hover:text-gray-300">
+          <a href="#layanan" className="text-gray-500 hover:text-gray-300">
             Layanan
           </a>
           <a href="#footer" className="text-gray-500 hover:text-gray-300">
