@@ -3,36 +3,34 @@ import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
-import Pagination from "../../../components/private/Pagination";
 import { ScaleLoader } from "react-spinners";
 
 const DataAntrian = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [Queue, setQueue] = useState([]);
-  const [selectedQueue, setSelectedQueue] = useState(null);
+  const [queue, setQueue] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/queue");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setQueue(data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/queue");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setQueue(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
 
   const headers = [
     { display: "No", field: "id" },
@@ -43,9 +41,41 @@ const DataAntrian = () => {
     { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
 
-  const detailQueue = (row) => {
-    setSelectedQueue(row);
-    console.log("Detail antrian:", row);
+  const detailQueue = async (row) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/patients", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(row),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      setQueue((prevQueue) =>
+        Array.isArray(prevQueue)
+          ? prevQueue.filter((queueItem) => queueItem.id !== row.id)
+          : []
+      );
+
+      const deleteResponse = await fetch(
+        `http://localhost:3000/api/queue/${row.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!deleteResponse.ok) {
+        throw new Error(`HTTP error! Status: ${deleteResponse.status}`);
+      }
+
+      fetchData();
+    } catch (error) {
+      console.error("Error creating patient:", error.message);
+    }
   };
 
   return (
@@ -75,7 +105,7 @@ const DataAntrian = () => {
                   ) : (
                     <Table
                       headers={headers}
-                      data={Queue}
+                      data={queue}
                       onActionButtonClick={(row) => detailQueue(row)}
                       actionButtonLabel="Accept"
                       dataType="queue"

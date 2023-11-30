@@ -3,7 +3,6 @@ import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
-import Pagination from "../../../components/private/Pagination";
 import PatientDetailModal from "../../../components/private/PatientDetailModal";
 import { ScaleLoader } from "react-spinners";
 

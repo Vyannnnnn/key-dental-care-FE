@@ -3,7 +3,6 @@ import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
-import Pagination from "../../../components/private/Pagination";
 import { ScaleLoader } from "react-spinners";
 import TimetableDetailModal from "../../../components/private/TimetableDetailModal";
 
@@ -14,27 +13,27 @@ const Jadwal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/timetable");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setTimetable(data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/timetable");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setTimetable(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
 
   const headers = [
     { display: "No", field: "id" },
@@ -51,17 +50,14 @@ const Jadwal = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    fetchData();
   };
 
   return (
     <div className="layout flex">
       <Navigation />
       <main className="flex flex-col grow">
-        <Navbar
-          page="Data Pasien"
-          breadcrumb=" Data Pasien"
-          showCreateButton={false}
-        />
+        <Navbar page="Jadwal" breadcrumb=" Jadwal" showCreateButton={false} />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">
             <div className="flex flex-col">

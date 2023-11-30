@@ -3,9 +3,8 @@ import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
-import Pagination from "../../../components/private/Pagination";
-import ProgramDetailModal from "../../../components/private/ProgramDetailModal";
 import { ScaleLoader } from "react-spinners";
+import ProgramDetailModal from "../../../components/private/ProgramDetailModal";
 
 const DataProgram = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,27 +13,27 @@ const DataProgram = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/programs");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setPrograms(data);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/programs");
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPrograms(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
 
   const headers = [
     { display: "No", field: "id" },
@@ -51,6 +50,7 @@ const DataProgram = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    fetchData();
   };
 
   return (
