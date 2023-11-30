@@ -4,11 +4,14 @@ import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
+import ProgramDetailModal from "../../../components/private/ProgramDetailModal";
 import { ScaleLoader } from "react-spinners";
 
 const DataProgram = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Programs, setPrograms] = useState([]);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +44,15 @@ const DataProgram = () => {
     { display: "Thumbnail", field: "Thumbnail" },
   ];
 
+  const detailPrograms = (row) => {
+    setSelectedProgram(row);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -66,13 +78,21 @@ const DataProgram = () => {
                       </div>
                     </div>
                   ) : (
-                    <Table
-                      headers={headers}
-                      data={Programs}
-                      onActionButtonClick={(row) => moveToPatients(row)}
-                      actionButtonLabel="Accept"
-                      dataType="programs"
-                    />
+                    <>
+                      <Table
+                        headers={headers}
+                        data={Programs}
+                        iconType="edit"
+                        onActionButtonClick={(row) => detailPrograms(row)}
+                        actionButtonLabel="Edit"
+                        dataType="programs"
+                      />
+                      <ProgramDetailModal
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        programData={selectedProgram}
+                      />
+                    </>
                   )}
                 </div>
               </div>

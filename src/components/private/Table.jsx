@@ -1,3 +1,6 @@
+import { BsFileEarmarkText } from "react-icons/bs";
+import { GoPencil } from "react-icons/go";
+
 const Table = ({
   headers,
   data,
@@ -5,7 +8,7 @@ const Table = ({
   iconType,
   onActionButtonClick,
   actionButtonLabel,
-  dataType, // New prop to determine the type of data (queue or patients)
+  dataType,
 }) => {
   const dataArray = Array.isArray(data[dataType]) ? data[dataType] : [];
 

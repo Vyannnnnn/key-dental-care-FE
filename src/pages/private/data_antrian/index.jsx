@@ -9,6 +9,7 @@ import { ScaleLoader } from "react-spinners";
 const DataAntrian = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Queue, setQueue] = useState([]);
+  const [selectedQueue, setSelectedQueue] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +43,11 @@ const DataAntrian = () => {
     { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
 
+  const detailQueue = (row) => {
+    setSelectedQueue(row);
+    console.log("Detail antrian:", row);
+  };
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -70,7 +76,7 @@ const DataAntrian = () => {
                     <Table
                       headers={headers}
                       data={Queue}
-                      onActionButtonClick={(row) => moveToPatients(row)}
+                      onActionButtonClick={(row) => detailQueue(row)}
                       actionButtonLabel="Accept"
                       dataType="queue"
                     />

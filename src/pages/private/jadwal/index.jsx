@@ -5,10 +5,13 @@ import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
 import { ScaleLoader } from "react-spinners";
+import TimetableDetailModal from "../../../components/private/TimetableDetailModal";
 
 const Jadwal = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Timetable, setTimetable] = useState([]);
+  const [selectedTimetable, setSelectedTimetable] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +44,15 @@ const Jadwal = () => {
     { display: "Sampai Pukul", field: "Sampai_Pukul" },
   ];
 
+  const detailTimetable = (row) => {
+    setSelectedTimetable(row);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -66,13 +78,21 @@ const Jadwal = () => {
                       </div>
                     </div>
                   ) : (
-                    <Table
-                      headers={headers}
-                      data={Timetable}
-                      onActionButtonClick={(row) => moveToPatients(row)}
-                      actionButtonLabel="Accept"
-                      dataType="timetable"
-                    />
+                    <>
+                      <Table
+                        headers={headers}
+                        data={Timetable}
+                        iconType="edit"
+                        onActionButtonClick={(row) => detailTimetable(row)}
+                        actionButtonLabel="Edit"
+                        dataType="timetable"
+                      />
+                      <TimetableDetailModal
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        timetableData={selectedTimetable}
+                      />
+                    </>
                   )}
                 </div>
               </div>

@@ -4,11 +4,14 @@ import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
 import Pagination from "../../../components/private/Pagination";
+import PatientDetailModal from "../../../components/private/PatientDetailModal";
 import { ScaleLoader } from "react-spinners";
 
 const DataPasien = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Patients, setPatients] = useState([]);
+  const [selectedPatient, setSelectedPatient] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +45,15 @@ const DataPasien = () => {
     { display: "Hari / Tanggal", field: "Hari_Tanggal" },
   ];
 
+  const detailPatients = (row) => {
+    setSelectedPatient(row);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -67,13 +79,21 @@ const DataPasien = () => {
                       </div>
                     </div>
                   ) : (
-                    <Table
-                      headers={headers}
-                      data={Patients}
-                      onActionButtonClick={(row) => moveToPatients(row)}
-                      actionButtonLabel="Accept"
-                      dataType="patients"
-                    />
+                    <>
+                      <Table
+                        headers={headers}
+                        data={Patients}
+                        iconType="detail"
+                        onActionButtonClick={(row) => detailPatients(row)}
+                        actionButtonLabel="Detail"
+                        dataType="patients"
+                      />
+                      <PatientDetailModal
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        patientData={selectedPatient}
+                      />
+                    </>
                   )}
                 </div>
               </div>
