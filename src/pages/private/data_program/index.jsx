@@ -61,6 +61,7 @@ const DataProgram = () => {
           page="Data Program"
           breadcrumb=" Data Program"
           showCreateButton={true}
+          onDataAdded={fetchData}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">

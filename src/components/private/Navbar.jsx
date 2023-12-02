@@ -16,7 +16,9 @@ const Navbar = (props) => {
         <div className="border-gray-300 w-full flex justify-between">
           <p className="text-[32px]">{props.page}</p>
           <div className="flex items-center">
-            {props.showCreateButton && <CreateButton />}
+            {props.showCreateButton && (
+              <CreateButton onDataAdded={props.onDataAdded} />
+            )}
             {props.showSearchButton && <SearchButton />}
           </div>
         </div>
