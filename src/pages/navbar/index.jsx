@@ -1,7 +1,11 @@
-import React, { useState, useEffect, Link } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from 'react-router-dom';
+import { Link as LinkScroll } from 'react-scroll';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const {hash} = useLocation()
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +19,15 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if(!hash) return
+
+    const target = document.querySelector(hash);
+    if(target){
+      target.scrollIntoView({behavior: 'smooth'})
+    }
+  }, [hash])
 
   const navbarClass = isScrolled
     ? "bg-[#FBFBFB] fixed w-full top-0 z-20"
@@ -30,15 +43,15 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex flex-grow items-center justify-center space-x-10">
-          <a href="/" className="text-gray-500 hover:text-gray-300">
+          <Link to="/#layanan" className="text-gray-500 hover:text-gray-300 hover:cursor-pointer">
             Layanan
-          </a>
-          <a href="#footer" className="text-gray-500 hover:text-gray-300">
+          </Link>
+          <Link to="/#footer" className="text-gray-500 hover:text-gray-300 hover:cursor-pointer">
             Kontak
-          </a>
-          <a href="/tentang_kami" className="text-gray-500 hover:text-gray-300">
+          </Link>
+          <Link to="/tentang_kami" className="text-gray-500 hover:text-gray-300">
             Tentang Kami
-          </a>
+          </Link>
         </div>
 
         <div className="md:flex items-center space-x-4 mr-16">
