@@ -3,15 +3,22 @@ import React, { useState, useEffect } from "react";
 const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
   const [editedData, setEditedData] = useState({});
   const [error, setError] = useState(null);
+  const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setEditedData(programData || {});
+      setEditedData({
+        Nama_Program: programData?.nama_program || "",
+        Harga_Program: programData?.harga_program || "",
+        Deskripsi_Program: programData?.deskripsi_program || "",
+        Thumbnail: programData?.thumbnail || "",
+      });
     }
   }, [isOpen, programData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log("Changing", name, "to", value);
     setEditedData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -21,13 +28,18 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
   const handleSaveChanges = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/program/${programData.id}`,
+        `https://keydentalcare.isepwebtim.my.id/api/program/${programData.id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(editedData),
+          body: JSON.stringify({
+            Nama_Program: editedData.Nama_Program,
+            Harga: editedData.Harga_Program,
+            Deskripsi: editedData.Deskripsi_Program,
+            Thumbnail: editedData.Thumbnail,
+          }),
         }
       );
 
@@ -36,11 +48,19 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
       }
 
       const data = await response.json();
+      console.log(data);
+
       onClose();
+
+      setSuccessModalVisible(true);
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setError("Error saving changes. Please try again.");
     }
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessModalVisible(false);
   };
 
   if (!isOpen) {
@@ -50,6 +70,34 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        {/* <div
+          className={`absolute left-80 top-5 ${
+            isSuccessModalVisible ? "" : "hidden"
+          }`}
+        >
+          <div className="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <div className="flex items-center justify-center w-12 bg-emerald-500">
+              <svg
+                className="w-6 h-6 text-white fill-current"
+                viewBox="0 0 40 40"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z" />
+              </svg>
+            </div>
+
+            <div className="px-4 py-2 -mx-3">
+              <div className="mx-3">
+                <span className="font-semibold text-emerald-500 dark:text-emerald-400">
+                  Success
+                </span>
+                <p className="text-sm text-gray-600 dark:text-gray-200">
+                  Your account was registered!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> */}
         <div
           className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
           role="dialog"
@@ -70,7 +118,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Nama_Program"
-                    value={editedData.nama_program || ""}
+                    value={editedData.Nama_Program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -79,8 +127,8 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <label className="text-sm text-gray-500">Harga</label>
                   <input
                     type="text"
-                    name="Harga"
-                    value={editedData.harga_program || ""}
+                    name="Harga_Program"
+                    value={editedData.Harga_Program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -89,8 +137,8 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <label className="text-sm text-gray-500">Deskripsi</label>
                   <input
                     type="text"
-                    name="Deskripsi"
-                    value={editedData.deskripsi_program || ""}
+                    name="Deskripsi_Program"
+                    value={editedData.Deskripsi_Program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -100,7 +148,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Thumbnail"
-                    value={editedData.thumbnail || ""}
+                    value={editedData.Thumbnail || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />

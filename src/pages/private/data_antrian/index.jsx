@@ -45,26 +45,23 @@ const DataAntrian = () => {
 
   const detailQueue = async (row) => {
     try {
-      const response = await fetch("http://localhost:3000/api/patient", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(row),
-      });
+      const response = await fetch(
+        `https://keydentalcare.isepwebtim.my.id/api/move-to-patient/${row.id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(row),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      setQueue((prevQueue) =>
-        Array.isArray(prevQueue)
-          ? prevQueue.filter((queueItem) => queueItem.id !== row.id)
-          : []
-      );
-
       const deleteResponse = await fetch(
-        `http://localhost:3000/api/queue/${row.id}`,
+        `https://keydentalcare.isepwebtim.my.id/api/queue/${row.id}`,
         {
           method: "DELETE",
         }
@@ -76,7 +73,10 @@ const DataAntrian = () => {
 
       fetchData();
     } catch (error) {
-      console.error("Error creating patient:", error.message);
+      console.error(
+        "Error moving to patient and deleting from queue:",
+        error.message
+      );
     }
   };
 

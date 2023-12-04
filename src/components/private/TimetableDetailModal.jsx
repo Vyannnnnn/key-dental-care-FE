@@ -26,7 +26,7 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
   const handleSaveChanges = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/timetable/${timetableData.id}`,
+        `https://keydentalcare.isepwebtim.my.id/api/timetable/${timetableData.id}`,
         {
           method: "PUT",
           headers: {
@@ -83,7 +83,7 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Tanggal</label>
                   <input
-                    type="text"
+                    type="date"
                     name="Tanggal"
                     value={editedData.Tanggal || ""}
                     onChange={handleInputChange}
@@ -93,7 +93,7 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Mulai Pukul</label>
                   <input
-                    type="text"
+                    type="time"
                     name="Mulai_Pukul"
                     value={editedData.Mulai_Pukul || ""}
                     onChange={handleInputChange}
@@ -103,7 +103,7 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Sampai Pukul</label>
                   <input
-                    type="text"
+                    type="time"
                     name="Sampai_Pukul"
                     value={editedData.Sampai_Pukul || ""}
                     onChange={handleInputChange}
