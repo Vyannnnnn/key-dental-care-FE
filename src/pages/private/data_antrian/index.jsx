@@ -15,7 +15,9 @@ const DataAntrian = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/queue");
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/queue"
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -34,16 +36,16 @@ const DataAntrian = () => {
 
   const headers = [
     { display: "No", field: "id" },
-    { display: "Nama", field: "Nama" },
-    { display: "Kode Antrian", field: "Kode_Antrian" },
-    { display: "Pelayanan", field: "Pelayanan" },
-    { display: "No Telepon", field: "No_Telepon" },
-    { display: "Hari / Tanggal", field: "Hari_Tanggal" },
+    { display: "Nama", field: "nama" },
+    { display: "Kode Antrian", field: "kode_antrian" },
+    { display: "Pelayanan", field: "pelayanan" },
+    { display: "No Telepon", field: "no_telepon" },
+    { display: "Hari / Tanggal", field: "hari_tanggal" },
   ];
 
   const detailQueue = async (row) => {
     try {
-      const response = await fetch("http://localhost:3000/api/patients", {
+      const response = await fetch("http://localhost:3000/api/patient", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

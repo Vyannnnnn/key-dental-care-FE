@@ -18,7 +18,9 @@ const DataProgram = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/programs");
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/program"
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -37,10 +39,10 @@ const DataProgram = () => {
 
   const headers = [
     { display: "No", field: "id" },
-    { display: "Nama Program", field: "Nama_Program" },
-    { display: "Harga", field: "Harga" },
-    { display: "Deskripsi", field: "Deskripsi" },
-    { display: "Thumbnail", field: "Thumbnail" },
+    { display: "Nama Program", field: "nama_program" },
+    { display: "Harga", field: "harga_program" },
+    { display: "Deskripsi", field: "deskripsi_program" },
+    { display: "Thumbnail", field: "thumbnail" },
   ];
 
   const detailPrograms = (row) => {

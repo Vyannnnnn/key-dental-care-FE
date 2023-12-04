@@ -15,7 +15,9 @@ const DataPasien = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/patients");
+        const response = await fetch(
+          "https://keydentalcare.isepwebtim.my.id/api/patient"
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -37,11 +39,11 @@ const DataPasien = () => {
 
   const headers = [
     { display: "No", field: "id" },
-    { display: "Nama", field: "Nama" },
-    { display: "Kode Antrian", field: "Kode_Antrian" },
-    { display: "Pelayanan", field: "Pelayanan" },
-    { display: "No Telepon", field: "No_Telepon" },
-    { display: "Hari / Tanggal", field: "Hari_Tanggal" },
+    { display: "Nama", field: "nama" },
+    { display: "Kode Antrian", field: "kode_antrian" },
+    { display: "Pelayanan", field: "layanan" },
+    { display: "No Telepon", field: "nomor_telepon" },
+    { display: "Hari / Tanggal", field: "hari_tanggal" },
   ];
 
   const detailPatients = (row) => {

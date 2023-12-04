@@ -12,7 +12,9 @@ const Konsultasi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/chats");
+        const response = await fetch(
+          "https://keydentalcare.isepwebtim.my.id/api/chats"
+        );
         console.log("Response:", response);
 
         if (!response.ok) {

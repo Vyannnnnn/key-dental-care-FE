@@ -21,7 +21,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
   const handleSaveChanges = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/programs/${programData.id}`,
+        `http://localhost:3000/api/program/${programData.id}`,
         {
           method: "PUT",
           headers: {
@@ -70,7 +70,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Nama_Program"
-                    value={editedData.Nama_Program || ""}
+                    value={editedData.nama_program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -80,7 +80,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Harga"
-                    value={editedData.Harga || ""}
+                    value={editedData.harga_program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -90,7 +90,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Deskripsi"
-                    value={editedData.Deskripsi || ""}
+                    value={editedData.deskripsi_program || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
@@ -100,7 +100,7 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                   <input
                     type="text"
                     name="Thumbnail"
-                    value={editedData.Thumbnail || ""}
+                    value={editedData.thumbnail || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />

@@ -28,15 +28,15 @@ const PatientDetailModal = ({ isOpen, onClose, patientData }) => {
                 </h3>
                 <div className="grid grid-cols-4 gap-4 text-gray-500">
                   <div className="">Nama</div>
-                  <div className="col-span-3">{patientData.Nama}</div>
+                  <div className="col-span-3">{patientData.nama}</div>
                   <div className="">Kode Antrian</div>
-                  <div className="col-span-3">{patientData.Kode_Antrian}</div>
+                  <div className="col-span-3">{patientData.kode_antrian}</div>
                   <div className="">Pelayanan</div>
-                  <div className="col-span-3">{patientData.Pelayanan}</div>
+                  <div className="col-span-3">{patientData.layanan}</div>
                   <div className="">No Telepon</div>
-                  <div className="col-span-3">{patientData.No_Telepon}</div>
+                  <div className="col-span-3">{patientData.nomor_telepon}</div>
                   <div className="">Hari / Tanggal</div>
-                  <div className="col-span-3">{patientData.Hari_Tanggal}</div>
+                  <div className="col-span-3">{patientData.hari_tanggal}</div>
                 </div>
               </div>
             </div>

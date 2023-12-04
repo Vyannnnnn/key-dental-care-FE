@@ -18,7 +18,9 @@ const Jadwal = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/timetable");
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/timetable"
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -37,10 +39,10 @@ const Jadwal = () => {
 
   const headers = [
     { display: "No", field: "id" },
-    { display: "Hari", field: "Hari" },
-    { display: "Tanggal", field: "Tanggal" },
-    { display: "Mulai Pukul", field: "Mulai_Pukul" },
-    { display: "Sampai Pukul", field: "Sampai_Pukul" },
+    { display: "Hari", field: "hari" },
+    { display: "Tanggal", field: "tanggal" },
+    { display: "Mulai Pukul", field: "mulai_jam" },
+    { display: "Sampai Pukul", field: "sampai_jam" },
   ];
 
   const detailTimetable = (row) => {

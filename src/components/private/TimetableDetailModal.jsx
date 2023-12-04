@@ -6,7 +6,12 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
 
   useEffect(() => {
     if (isOpen) {
-      setEditedData(timetableData);
+      setEditedData({
+        Hari: timetableData.hari || "",
+        Tanggal: timetableData.tanggal || "",
+        Mulai_Pukul: timetableData.mulai_jam || "",
+        Sampai_Pukul: timetableData.sampai_jam || "",
+      });
     }
   }, [isOpen, timetableData]);
 
@@ -70,7 +75,7 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
                   <input
                     type="text"
                     name="Hari"
-                    value={editedData.Hari || ""}
+                    value={editedData.Hari}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
