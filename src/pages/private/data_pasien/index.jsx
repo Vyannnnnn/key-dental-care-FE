@@ -65,7 +65,7 @@ const DataPasien = () => {
           showCreateButton={false}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
-          <section className="container px-[39px] py-[39px] mx-auto">
+          <section className="container px-[39px] py-[39px]">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

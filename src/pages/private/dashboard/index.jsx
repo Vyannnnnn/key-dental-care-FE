@@ -45,13 +45,13 @@ const Dashboard = () => {
       <main className="flex flex-col grow">
         <Navbar page="Dashboard" breadcrumb="" showCreateButton={false} />
         <div className="content grow object-contain">
-          <section className="container px-[39px] py-[39px] mx-auto">
+          <section className="container px-[39px] py-[39px]">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                   <div className="overflow-hidden md:rounded-lg">
-                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#F5365C] p-4">
+                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-start">
+                      <div className="rounded-lg w-full md:w-[300px] h-[123px] bg-[#F5365C] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Pasien</p>
@@ -67,7 +67,7 @@ const Dashboard = () => {
                           </Link>
                         </div>
                       </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FB6340] p-4">
+                      <div className="rounded-lg w-full md:w-[300px] h-[123px] bg-[#FB6340] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Antrian</p>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                           </Link>
                         </div>
                       </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#FFD600] p-4">
+                      <div className="rounded-lg w-full md:w-[300px] h-[123px] bg-[#FFD600] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Program</p>
@@ -101,7 +101,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-start">
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#11CDEF] p-4">
+                      <div className="rounded-lg w-full md:w-[300px] h-[123px] bg-[#11CDEF] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Jadwal</p>
@@ -117,7 +117,7 @@ const Dashboard = () => {
                           </Link>
                         </div>
                       </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-[#2DCE89] p-4">
+                      <div className="rounded-lg w-full md:w-[300px] h-[123px] bg-[#2DCE89] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Konsultasi</p>
