@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import { Link } from "react-router-dom";
 import BarChartComponent from "../../../components/private/BarChartComponent";
-// import DashboardCard from "../../../components/private/DashboardCard";
 
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://keydentalcare.isepwebtim.my.id/api/dashboard"
+        );
+        const data = await response.json();
+        setDashboardData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const data = [
     { name: "Jan", value: 30 },
     { name: "Feb", value: 40 },
@@ -21,6 +38,7 @@ const Dashboard = () => {
     { name: "Nov", value: 67 },
     { name: "Dec", value: 88 },
   ];
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -37,7 +55,9 @@ const Dashboard = () => {
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Pasien</p>
-                            <p className="text-xl">120</p>
+                            <p className="text-xl">
+                              {dashboardData.patients || 0}
+                            </p>
                           </div>
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
@@ -51,7 +71,9 @@ const Dashboard = () => {
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Antrian</p>
-                            <p className="text-xl">10</p>
+                            <p className="text-xl">
+                              {dashboardData.queue || 0}
+                            </p>
                           </div>
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
@@ -65,7 +87,9 @@ const Dashboard = () => {
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Program</p>
-                            <p className="text-xl">24</p>
+                            <p className="text-xl">
+                              {dashboardData.programs || 0}
+                            </p>
                           </div>
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
@@ -76,12 +100,14 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-center">
+                    <div className="mb-[70px] w-full  flex flex-wrap gap-8 justify-start">
                       <div className="rounded-lg w-[300px] h-[123px] bg-[#11CDEF] p-4">
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Jadwal</p>
-                            <p className="text-xl">1</p>
+                            <p className="text-xl">
+                              {dashboardData.timetable || 0}
+                            </p>
                           </div>
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
@@ -95,7 +121,9 @@ const Dashboard = () => {
                         <div className="flex justify-between text-white w-full px-[12px]">
                           <div>
                             <p className="text-xs">Konsultasi</p>
-                            <p className="text-xl">5</p>
+                            <p className="text-xl">
+                              {dashboardData.chats || 0}
+                            </p>
                           </div>
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
@@ -105,7 +133,6 @@ const Dashboard = () => {
                           </Link>
                         </div>
                       </div>
-                      <div className="rounded-lg w-[300px] h-[123px] bg-transparent"></div>
                     </div>
                     <div className="w-full  justify-center p-8 bg-gray-100 rounded-lg">
                       <BarChartComponent data={data} />

@@ -12,18 +12,8 @@ const Konsultasi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/api/chats"
-        );
-        console.log("Response:", response);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
+        const response = await fetch("http://localhost:8000/chats");
         const data = await response.json();
-        console.log("Data:", data);
-
         setChats(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -36,8 +26,6 @@ const Konsultasi = () => {
 
     fetchData();
   }, []);
-
-  console.log("Chatsnya adalah:", chats);
 
   return (
     <div className="layout flex">
@@ -65,7 +53,7 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <ChatContent data={chats && chats.chats} dataType="chats" />
+                    <ChatContent data={chats} />
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}

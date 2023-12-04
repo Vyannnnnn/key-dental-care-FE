@@ -1,92 +1,84 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
-import Pagination from "../../../components/private/Pagination";
+import Table from "../../../components/private/Table";
+import { ScaleLoader } from "react-spinners";
 
-const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama",
-    "Umur",
-    "Jenis Kelamin",
-    "Alamat",
-    "No Telepon",
-    "Aksi",
+const DataAntrian = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [queue, setQueue] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/queue"
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setQueue(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama", field: "nama" },
+    { display: "Kode Antrian", field: "kode_antrian" },
+    { display: "Pelayanan", field: "pelayanan" },
+    { display: "No Telepon", field: "no_telepon" },
+    { display: "Hari / Tanggal", field: "hari_tanggal" },
   ];
-  const td = [
-    "1",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "2",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "3",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "4",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "5",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "6",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "7",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "8",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "9",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-    "10",
-    "Ella Fitriyani Rosyidah",
-    "17",
-    "Perempuan",
-    "Pariaman, Sumatra Barat",
-    "081392307589",
-    // <ReusableButton />,
-  ];
+
+  const detailQueue = async (row) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/patient", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(row),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      setQueue((prevQueue) =>
+        Array.isArray(prevQueue)
+          ? prevQueue.filter((queueItem) => queueItem.id !== row.id)
+          : []
+      );
+
+      const deleteResponse = await fetch(
+        `http://localhost:3000/api/queue/${row.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!deleteResponse.ok) {
+        throw new Error(`HTTP error! Status: ${deleteResponse.status}`);
+      }
+
+      fetchData();
+    } catch (error) {
+      console.error("Error creating patient:", error.message);
+    }
+  };
 
   return (
     <div className="layout flex">
@@ -97,18 +89,33 @@ const DataPasien = () => {
           breadcrumb=" Data Antrian"
           showCreateButton={false}
         />
-        <div className="content grow object-contain">
+        <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
-                  </div>
+                  {isLoading ? (
+                    <div className="flex items-center justify-center h-40">
+                      <div className="flex justify-around mt-8">
+                        <ScaleLoader
+                          color="#21695c"
+                          loading={isLoading}
+                          height={30}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <Table
+                      headers={headers}
+                      data={queue}
+                      onActionButtonClick={(row) => detailQueue(row)}
+                      actionButtonLabel="Accept"
+                      dataType="queue"
+                    />
+                  )}
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
@@ -117,12 +124,4 @@ const DataPasien = () => {
   );
 };
 
-const ReusableButton = () => {
-  return (
-    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
-      ...
-    </button>
-  );
-};
-
-export default DataPasien;
+export default DataAntrian;

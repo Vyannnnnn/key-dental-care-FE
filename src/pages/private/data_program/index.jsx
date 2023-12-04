@@ -1,70 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import TableContent from "../../../components/private/TableContent";
-import Pagination from "../../../components/private/Pagination";
+import Table from "../../../components/private/Table";
+import { ScaleLoader } from "react-spinners";
+import ProgramDetailModal from "../../../components/private/ProgramDetailModal";
 
-const DataPasien = () => {
-  const th = [
-    "Nomor",
-    "Nama Program",
-    "Harga",
-    "Deskripsi",
-    "Thumbnail",
-    "Aksi",
+const DataProgram = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [Programs, setPrograms] = useState([]);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/program"
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setPrograms(data);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    }
+  };
+
+  const headers = [
+    { display: "No", field: "id" },
+    { display: "Nama Program", field: "nama_program" },
+    { display: "Harga", field: "harga_program" },
+    { display: "Deskripsi", field: "deskripsi_program" },
+    { display: "Thumbnail", field: "thumbnail" },
   ];
-  const td = [
-    "1",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "2",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "3",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "4",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "5",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "6",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-    "7",
-    "Pencabutan Gigi Anak",
-    "50 - 100 K",
-    "Lorem Ipsum",
-    "Gambar1",
-    "",
-    // <ReusableButton />,
-  ];
+
+  const detailPrograms = (row) => {
+    setSelectedProgram(row);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    fetchData();
+  };
 
   return (
     <div className="layout flex">
@@ -74,19 +63,43 @@ const DataPasien = () => {
           page="Data Program"
           breadcrumb=" Data Program"
           showCreateButton={true}
+          onDataAdded={fetchData}
         />
-        <div className="content grow object-contain">
+        <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px] mx-auto">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                    <TableContent th={th} td={td} />
-                  </div>
+                  {isLoading ? (
+                    <div className="flex items-center justify-center h-40">
+                      <div className="flex justify-around mt-8">
+                        <ScaleLoader
+                          color="#21695c"
+                          loading={isLoading}
+                          height={30}
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <Table
+                        headers={headers}
+                        data={Programs}
+                        iconType="edit"
+                        onActionButtonClick={(row) => detailPrograms(row)}
+                        actionButtonLabel="Edit"
+                        dataType="programs"
+                      />
+                      <ProgramDetailModal
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        programData={selectedProgram}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <Pagination />
           </section>
         </div>
         <Footer />
@@ -95,12 +108,4 @@ const DataPasien = () => {
   );
 };
 
-const ReusableButton = () => {
-  return (
-    <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none text-lg">
-      ...
-    </button>
-  );
-};
-
-export default DataPasien;
+export default DataProgram;
