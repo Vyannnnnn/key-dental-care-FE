@@ -66,6 +66,9 @@ const DataAntrian = () => {
           method: "DELETE",
         }
       );
+      setTimeout(() => {
+        window.alert("Antrian Berhasil Diterima");
+      }, 300);
 
       if (!deleteResponse.ok) {
         throw new Error(`HTTP error! Status: ${deleteResponse.status}`);

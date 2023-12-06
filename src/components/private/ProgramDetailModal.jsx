@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import CustomAlert from "./CustomAlert";
 
 const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
   const [editedData, setEditedData] = useState({});
   const [error, setError] = useState(null);
   const [isSuccessModalVisible, setSuccessModalVisible] = useState(false);
+  const [alert, setAlert] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -51,6 +53,10 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
       console.log(data);
 
       onClose();
+
+      setTimeout(() => {
+        window.alert("Changes saved successfully!");
+      }, 300);
 
       setSuccessModalVisible(true);
     } catch (error) {
@@ -107,12 +113,22 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
               <div className="mt-3 w-full">
-                <h3
-                  className="text-lg leading-6 font-medium text-gray-900 mb-6"
-                  id="modal-headline"
-                >
-                  Detail Program
-                </h3>
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">
+                    Detail Program
+                  </h3>
+                  <button
+                    onClick={onClose}
+                    type="button"
+                    className="inline-flex justify-center items-center rounded-md border border-transparent  p-2  text-base font-medium text-white hover:bg-[#dadada] focus:outline-none focus:ring-2 focus:ring-offset-2 "
+                  >
+                    <img
+                      className="w-4 h-4"
+                      src="/close.svg"
+                      alt="Close Icon"
+                    />
+                  </button>
+                </div>
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Nama Program</label>
                   <input
@@ -156,20 +172,13 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <button
               onClick={handleSaveChanges}
               type="button"
-              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#21695c] text-base font-medium text-white hover:bg-[#165c4a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#21695c] sm:ml-3 sm:w-auto sm:text-sm"
+              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#0EA5E9] text-base font-medium text-white hover:bg-[#dadada] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0EA5E9] sm:ml-3 sm:w-auto sm:text-sm"
             >
-              Save Changes
-            </button>
-            <button
-              onClick={onClose}
-              type="button"
-              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#21695c] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-            >
-              Close
+              Update
             </button>
           </div>
           {error && <div className="text-red-500 mt-4">{error}</div>}
