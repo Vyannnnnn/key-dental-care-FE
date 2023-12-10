@@ -25,11 +25,11 @@ const ModalPasien = ({ isOpen, onClose }) => {
   }, []);
 
   const openModal = () => {
-    setIsModalOpen(true); // Buka modal dengan mengatur isModalOpen menjadi true
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // Tutup modal dengan mengatur isModalOpen menjadi false
+    setIsModalOpen(false);
   };
 
   return (
@@ -40,7 +40,13 @@ const ModalPasien = ({ isOpen, onClose }) => {
             <div className="flex justify-between">
               <h1 className="font-semibold text-xl">Detail Pasien</h1>
               <button onClick={onClose} className="text-white mb-3">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -52,97 +58,122 @@ const ModalPasien = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            {/* {data ? (
-              <div className="table-container">
-                <table className="min-w-full divide-gray-700 my-4">
-                  <thead className="bg-gray-100 text-center">
-                    <tr>
-                      <th className="vertical-header  w-1/6 min-w-[160px] py-2 text-sm font-normal text-gray-500 dark:text-gray-400">Nomor</th>
-                      <th className="vertical-header  w-1/6 min-w-[160px] py-2 text-sm font-normal text-gray-500 dark:text-gray-400">Nama</th>
-                      <th className="vertical-header  w-1/6 min-w-[160px] py-2 text-sm font-normal text-gray-500 dark:text-gray-400">Kode Antrian</th>
-                      <th className="vertical-header  w-1/6 min-w-[160px] py-2 text-sm font-normal text-gray-500 dark:text-gray-400">Pelayanan</th>
-                      <th className="vertical-header  w-1/6 min-w-[160px] py-2 text-sm font-normal text-gray-500 dark:text-gray-400">No Telepon</th>
-                    </tr>
-                  </thead>
-
-                  <tbody className="text-center divide-y divide-gray-200">
-                    {data.map((item) => (
-                      <tr key={item.id}>
-                        <td className="text-sm font-medium">{item.nomor}</td>
-                        <td className="px-4 py-4 text-sm font-medium">{item.nama}</td>
-                        <td className="px-4 py-4 text-sm font-medium">{item.kode_antrian}</td>
-                        <td className="px-4 py-4 text-sm font-medium">{item.pelayanan}</td>
-                        <td className="px-4 py-4 text-sm font-medium">{item.no_telepon}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              "Loading..."
-            )} */}
-
             <table className="mb-10 border border-solid border-black border-collapse min-w-full divide-gray-700 my-4">
               <tr>
-                <th className="border border-solid border-black border-collapse p-2 w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Nama</th>
-                <td className="border border-solid border-black border-collapse p-2  text-sm font-medium ">Ella Fitriyani Rosyidah</td>
+                <th className="border border-solid border-black border-collapse p-2 w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Nama
+                </th>
+                <td className="border border-solid border-black border-collapse p-2  text-sm font-medium ">
+                  Ella Fitriyani Rosyidah
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Umur</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">17</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Umur
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  17
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Jenis Kelamin</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">P</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Jenis Kelamin
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  P
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Alamat</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Pariaman, Sumatra Barat</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Alamat
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Pariaman, Sumatra Barat
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">No telepon</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">081392307589</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  No telepon
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  081392307589
+                </td>
               </tr>
             </table>
 
             <table className="border border-solid border-black border-collapse min-w-full divide-gray-700 my-4">
-              <caption className="text-left font-medium text-xl mb-5">Rekaman Medis</caption>
+              <caption className="text-left font-medium text-xl mb-5">
+                Rekaman Medis
+              </caption>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Kode Rekam Medis</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium ">RM0020-01</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Kode Rekam Medis
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium ">
+                  RM0020-01
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Dokter</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Drg. Rima Yunita R</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Dokter
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Drg. Rima Yunita R
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Keluhan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Sakit Gigi</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Keluhan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Sakit Gigi
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Diagnosa</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Gigi Berlubang</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Diagnosa
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Gigi Berlubang
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Tindakan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Tambal Gigi Dewasa</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Tindakan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Tambal Gigi Dewasa
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Keterangan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Obat paracetamol 3x1 hari, 1 tablet</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Keterangan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Obat paracetamol 3x1 hari, 1 tablet
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Tanggal Pemeriksaan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">14-11-2023</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Tanggal Pemeriksaan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  14-11-2023
+                </td>
               </tr>
             </table>
             <div className="flex justify-end">
-              <button onClick={openModal} className="text-white mb-2 rounded-md bg-[#0EA5E9] px-5 py-1">Tambah Data</button>
+              <button
+                onClick={openModal}
+                className="text-white mb-2 rounded-md bg-[#0EA5E9] px-5 py-1"
+              >
+                Tambah Data
+              </button>
             </div>
           </div>
         </div>
       )}
-    <ModalAddDataPasien isOpen={isModalOpen} onClose={closeModal}/>
+      <ModalAddDataPasien isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 };

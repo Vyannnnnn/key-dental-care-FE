@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { ScaleLoader } from "react-spinners";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
-import { ScaleLoader } from "react-spinners";
 
 const DataAntrian = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,20 +68,20 @@ const DataAntrian = () => {
           method: "DELETE",
         }
       );
-      setTimeout(() => {
-        window.alert("Antrian Berhasil Diterima");
-      }, 300);
 
       if (!deleteResponse.ok) {
         throw new Error(`HTTP error! Status: ${deleteResponse.status}`);
       }
 
       fetchData();
+
+      toast.success("Antrian Berhasil Diterima");
     } catch (error) {
       console.error(
         "Error moving to patient and deleting from queue:",
         error.message
       );
+      toast.error("Terjadi kesalahan. Silakan coba lagi.");
     }
   };
 
@@ -123,6 +125,17 @@ const DataAntrian = () => {
         </div>
         <Footer />
       </main>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

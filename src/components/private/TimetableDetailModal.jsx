@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
   const [editedData, setEditedData] = useState({});
@@ -15,13 +17,13 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
     }
   }, [isOpen, timetableData]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    if (!isOpen && editedData.Hari) {
+      toast.success("Edit berhasil");
+
+      setEditedData({});
+    }
+  }, [isOpen, editedData.Hari]);
 
   const handleSaveChanges = async () => {
     try {
@@ -42,15 +44,25 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
 
       const data = await response.json();
 
-      onClose();
+      toast.success("Edit berhasil");
 
       setTimeout(() => {
-        window.alert("Changes saved successfully!");
-      }, 300);
+        onClose();
+      }, 1000);
+
+      console.log("Notifikasi berhasil dipanggil");
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setError("Error saving changes. Please try again.");
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   if (!isOpen) {
@@ -139,6 +151,17 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
           </div>
           {error && <div className="text-red-500 mt-4">{error}</div>}
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     </div>
   );
