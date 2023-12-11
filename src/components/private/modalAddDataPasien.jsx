@@ -29,9 +29,17 @@ const ModalAddDataPasien = ({ isOpen, onClose }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded-md ml-64 -mt-32 w-[65%] h-[670px]">
             <div className="flex justify-between">
-              <h1 className="font-semibold text-xl">Tambah Data Rekaman Medis</h1>
+              <h1 className="font-semibold text-xl">
+                Tambah Data Rekaman Medis
+              </h1>
               <button onClick={onClose} className="text-white mb-3">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -44,36 +52,69 @@ const ModalAddDataPasien = ({ isOpen, onClose }) => {
             </div>
             <table className="border border-solid border-black border-collapse min-w-full divide-gray-700 my-4">
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Kode Rekam Medis</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium ">RM0020-01</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Kode Rekam Medis
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium ">
+                  RM0020-01
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Dokter</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Drg. Rima Yunita R</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Dokter
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Drg. Rima Yunita R
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Keluhan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Sakit Gigi</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Keluhan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Sakit Gigi
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Diagnosa</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Gigi Berlubang</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Diagnosa
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Gigi Berlubang
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Tindakan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Tambal Gigi Dewasa</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Tindakan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Tambal Gigi Dewasa
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Keterangan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">Obat paracetamol 3x1 hari, 1 tablet</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Keterangan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  Obat paracetamol 3x1 hari, 1 tablet
+                </td>
               </tr>
               <tr>
-                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">Tanggal Pemeriksaan</th>
-                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">14-11-2023</td>
+                <th className="border border-solid border-black border-collapse w-1/6 min-w-[160px] text-sm font-normal text-gray-500 dark:text-gray-400 bg-gray-100">
+                  Tanggal Pemeriksaan
+                </th>
+                <td className="border border-solid border-black border-collapse p-2 text-sm font-medium">
+                  14-11-2023
+                </td>
               </tr>
             </table>
             <div className="flex justify-end">
-              <button onClick={onClose} className="text-white mb-2 rounded-md bg-[#15CF74] px-5 py-1">Simpan Data</button>
+              <button
+                onClick={onClose}
+                className="text-white mb-2 rounded-md bg-[#15CF74] px-5 py-1"
+              >
+                Simpan Data
+              </button>
             </div>
           </div>
         </div>

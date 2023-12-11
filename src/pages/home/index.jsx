@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../navbar";
 import Footer from "../footer";
 import Testimonial from "../testimonial";
 import Layanan from "../layanan";
 
 const Home = () => {
+  useEffect(() => {
+    window.watsonAssistantChatOptions = {
+      integrationID: "94dca17d-2751-4065-baac-eb70458a879a",
+      region: "us-south",
+      serviceInstanceID: "a1b2acc8-945e-4732-b0e7-7a72a9c84455",
+      onLoad: async (instance) => {
+        await instance.render();
+      },
+    };
+
+    const t = document.createElement("script");
+    t.src =
+      "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+      (window.watsonAssistantChatOptions.clientVersion || "latest") +
+      "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+
+    return () => {
+      document.head.removeChild(t);
+    };
+  }, []);
+
   return (
     <div>
       <Navbar />
