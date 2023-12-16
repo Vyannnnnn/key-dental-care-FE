@@ -1,35 +1,26 @@
-const ChatContent = ({ data }) => {
-  const chatArray = Array.isArray(data) ? data : [];
+import React from "react";
 
+const ChatContent = ({ data, dataType, onUserClick }) => {
   return (
     <div>
-      {chatArray.length > 0 ? (
-        chatArray.map((chat) => (
+      {dataType === "chats" &&
+        data.map((chat, index) => (
           <div
-            key={chat.id}
-            className="w-full h-[64px] flex items-center border-b-[1px] border-[#A098AE] mb-[16px]"
+            key={index}
+            className="mb-4 border p-4 rounded-md cursor-pointer"
+            onClick={() => onUserClick(chat.user)}
           >
-            <div className="ml-[10px] w-[50px] h-[50px] rounded-full">
-              {chat.avatar && (
-                <img
-                  src={chat.avatar}
-                  alt="Avatar"
-                  className="w-full h-full rounded-full"
-                />
-              )}
-            </div>
-            <div className="ml-[16px] grow">
-              <p className="text-base">{chat.name}</p>
-              <p className="text-[#A098AE] text-sm">{chat.message}</p>
-            </div>
-            <div className="mr-[10px]">
-              <p className="text-[#A098AE]">{chat.time}</p>
-            </div>
+            <h3 className="text-lg font-semibold mb-2">{chat.user}</h3>
+            <ul className="list-disc list-inside">
+              {chat.messages.map((message, msgIndex) => (
+                <li key={msgIndex} className="mb-2">
+                  <span className="font-semibold">{message.timestamp}</span>:{" "}
+                  {message.text}
+                </li>
+              ))}
+            </ul>
           </div>
-        ))
-      ) : (
-        <p className="text-center">Tidak ada chat</p>
-      )}
+        ))}
     </div>
   );
 };

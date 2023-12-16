@@ -12,8 +12,18 @@ const Konsultasi = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/chats");
+        const response = await fetch(
+          "https://keydentalcare.isepwebtim.my.id/api/chats"
+        );
+        console.log("Response:", response);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Data:", data);
+
         setChats(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -27,6 +37,8 @@ const Konsultasi = () => {
     fetchData();
   }, []);
 
+  console.log("Chatsnya adalah:", chats);
+
   return (
     <div className="layout flex">
       <Navigation />
@@ -38,7 +50,7 @@ const Konsultasi = () => {
           showSearchButton={true}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
-          <section className="container px-[39px] py-[39px] mx-auto">
+          <section className="container px-[39px] py-[39px]">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -53,7 +65,7 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <ChatContent data={chats} />
+                    <ChatContent data={chats && chats.chats} dataType="chats" />
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}

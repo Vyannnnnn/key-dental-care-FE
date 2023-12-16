@@ -8,19 +8,37 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (email === "admin@gmail.com" && password === "admin") {
-      localStorage.setItem("isLoggedIn", "true");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/api/auth/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
-      toast.success("Login berhasil");
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("accessToken", data.token);
 
-      setTimeout(() => {
-        navigate("/admin");
-      }, 1500);
-    } else {
-      toast.error("Gagal masuk, Silakan periksa email dan kata sandi Anda.");
+        toast.success("Login berhasil");
+
+        setTimeout(() => {
+          navigate("/admin");
+        }, 1500);
+      } else {
+        toast.error("Gagal masuk, Silakan periksa email dan kata sandi Anda.");
+      }
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error);
+      toast.error("Terjadi kesalahan saat melakukan login.");
     }
   };
+
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
       <ToastContainer

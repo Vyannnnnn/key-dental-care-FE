@@ -2,35 +2,53 @@ import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import ChatContent from "../../../components/private/ChatContent";
 import { ScaleLoader } from "react-spinners";
+import UserList from "../../../components/private/UserList"; // Import user list component
+import UserDetailModal from "../../../components/private/UserDetailModal"; // Import modal component
 
 const Konsultasi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null); // Track selected user for modal display
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/api/chats"
-        );
-        console.log("Response:", response);
+        setIsLoading(true);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        // Simulate fetching data from API
+        // Replace this with actual API call
+        const dummyChats = [
+          {
+            user: "User1",
+            messages: [
+              { text: "Halo, apa kabar?", timestamp: "2023-01-01T12:00:00" },
+              {
+                text: "Saya baik. Bagaimana denganmu?",
+                timestamp: "2023-01-01T12:05:00",
+              },
+            ],
+          },
+          {
+            user: "User2",
+            messages: [
+              {
+                text: "Hai! Saya baik, terima kasih.",
+                timestamp: "2023-01-01T12:02:00",
+              },
+              {
+                text: "Sedang bekerja. Kamu?",
+                timestamp: "2023-01-01T12:07:00",
+              },
+            ],
+          },
+        ];
 
-        const data = await response.json();
-        console.log("Data:", data);
-
-        setChats(data);
+        setChats(dummyChats);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
+        setIsLoading(false);
       }
     };
 
@@ -38,6 +56,16 @@ const Konsultasi = () => {
   }, []);
 
   console.log("Chatsnya adalah:", chats);
+
+  // Handle click on a user card to show details in modal
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+  };
+
+  // Close the modal
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+  };
 
   return (
     <div className="layout flex">
@@ -65,7 +93,10 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <ChatContent data={chats && chats.chats} dataType="chats" />
+                    <UserList
+                      users={chats}
+                      onUserClick={handleUserClick} // Pass click handler
+                    />
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}
@@ -76,6 +107,10 @@ const Konsultasi = () => {
         </div>
         <Footer />
       </main>
+      {/* Render modal if a user is selected */}
+      {selectedUser && (
+        <UserDetailModal user={selectedUser} onCloseModal={handleCloseModal} />
+      )}
     </div>
   );
 };
