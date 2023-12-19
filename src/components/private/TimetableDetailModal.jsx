@@ -3,7 +3,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
-  const [editedData, setEditedData] = useState({});
+  const [editedData, setEditedData] = useState({
+    Hari: "", // Inisialisasi dengan nilai default yang valid
+    Tanggal: "",
+    Mulai_Pukul: "",
+    Sampai_Pukul: "",
+  });
+
   const [error, setError] = useState(null);
 
   useEffect(() => {

@@ -44,15 +44,24 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const errorData = await response.text();
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Data: ${errorData}`
+        );
       }
 
-      const data = await response.json();
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-
-      toast.success("Changes saved successfully!");
+      // Check if the response is in JSON format
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        setTimeout(() => {
+          onClose();
+        }, 1000);
+        toast.success("Changes saved successfully!");
+        console.log("Data added successfully:", data);
+      } else {
+        throw new Error("Invalid JSON response from the server");
+      }
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setError("Error saving changes. Please try again.");

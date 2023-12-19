@@ -3,48 +3,36 @@ import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
 import { ScaleLoader } from "react-spinners";
-import UserList from "../../../components/private/UserList"; // Import user list component
-import UserDetailModal from "../../../components/private/UserDetailModal"; // Import modal component
+import UserDetailModal from "../../../components/private/UserDetailModal";
 
 const Konsultasi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); // Track selected user for modal display
+  const [history, setHistory] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [additionalData, setAdditionalData] = useState(null); // New state for additional data
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
 
-        // Simulate fetching data from API
-        // Replace this with actual API call
-        const dummyChats = [
+        const response = await fetch(
+          "https://keydentalcare.isepwebtim.my.id/admin-chats",
           {
-            user: "User1",
-            messages: [
-              { text: "Halo, apa kabar?", timestamp: "2023-01-01T12:00:00" },
-              {
-                text: "Saya baik. Bagaimana denganmu?",
-                timestamp: "2023-01-01T12:05:00",
-              },
-            ],
-          },
-          {
-            user: "User2",
-            messages: [
-              {
-                text: "Hai! Saya baik, terima kasih.",
-                timestamp: "2023-01-01T12:02:00",
-              },
-              {
-                text: "Sedang bekerja. Kamu?",
-                timestamp: "2023-01-01T12:07:00",
-              },
-            ],
-          },
-        ];
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-        setChats(dummyChats);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setChats(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -55,16 +43,27 @@ const Konsultasi = () => {
     fetchData();
   }, []);
 
-  console.log("Chatsnya adalah:", chats);
-
-  // Handle click on a user card to show details in modal
-  const handleUserClick = (user) => {
+  const handleUserClick = async (user) => {
     setSelectedUser(user);
+    try {
+      const response = await fetch(
+        `https://keydentalcare.isepwebtim.my.id/chat/riwayat/${user.senderId}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setAdditionalData(data);
+    } catch (error) {
+      console.error("Error fetching additional data:", error);
+    }
   };
 
-  // Close the modal
   const handleCloseModal = () => {
     setSelectedUser(null);
+    setAdditionalData(null);
   };
 
   return (
@@ -93,10 +92,31 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <UserList
-                      users={chats}
-                      onUserClick={handleUserClick} // Pass click handler
-                    />
+                    <div>
+                      {chats.map((chat, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleUserClick(chat)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <div className="border-b-2 border-black pb-2 mb-3">
+                            <div className="flex">
+                              <div className="w-16 h-16">
+                                <img
+                                  className="w-full h-full rounded-full"
+                                  src={`https://keydentalcare.isepwebtim.my.id/img/${chat.profileSender}`}
+                                  alt=""
+                                />
+                              </div>
+                              <div className="p-2">
+                                <p>{chat.senderName}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div></div>
+                        </div>
+                      ))}
+                    </div>
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}
@@ -107,9 +127,12 @@ const Konsultasi = () => {
         </div>
         <Footer />
       </main>
-      {/* Render modal if a user is selected */}
       {selectedUser && (
-        <UserDetailModal user={selectedUser} onCloseModal={handleCloseModal} />
+        <UserDetailModal
+          user={selectedUser}
+          additionalData={additionalData}
+          onCloseModal={handleCloseModal}
+        />
       )}
     </div>
   );

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-const CreateButton = ({ onDataAdded }) => {
+const CreateButton = ({ onDataAdded, authToken }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     Nama_Program: "",
     Harga: "",
     Deskripsi: "",
-    Thumbnail: "",
+    Thumbnail: null,
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "file" ? e.target.files[0] : value,
     });
   };
 
@@ -27,22 +27,25 @@ const CreateButton = ({ onDataAdded }) => {
       Nama_Program: "",
       Harga: "",
       Deskripsi: "",
-      Thumbnail: "",
+      Thumbnail: null,
     });
   };
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("Nama_Program", formData.Nama_Program);
+    formDataToSend.append("Harga", formData.Harga);
+    formDataToSend.append("Deskripsi", formData.Deskripsi);
+    formDataToSend.append("Thumbnail", formData.Thumbnail);
+
     try {
       const response = await fetch(
         "https://keydentalcare.isepwebtim.my.id/api/programs/",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          body: formDataToSend,
         }
       );
 
@@ -130,9 +133,9 @@ const CreateButton = ({ onDataAdded }) => {
                           Thumbnail
                         </label>
                         <input
-                          type="text"
+                          type="file"
                           name="Thumbnail"
-                          value={formData.Thumbnail}
+                          accept="image/*"
                           onChange={handleInputChange}
                           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                         />
