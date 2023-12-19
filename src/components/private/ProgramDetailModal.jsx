@@ -50,7 +50,6 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
         );
       }
 
-      // Check if the response is in JSON format
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
@@ -133,9 +132,8 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Thumbnail</label>
                   <input
-                    type="text"
+                    type="file"
                     name="Thumbnail"
-                    value={editedData.Thumbnail || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />
