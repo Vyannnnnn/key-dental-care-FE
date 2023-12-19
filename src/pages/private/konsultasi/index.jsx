@@ -8,9 +8,8 @@ import UserDetailModal from "../../../components/private/UserDetailModal";
 const Konsultasi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
-  const [history, setHistory] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [additionalData, setAdditionalData] = useState(null); // New state for additional data
+  const [additionalData, setAdditionalData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {

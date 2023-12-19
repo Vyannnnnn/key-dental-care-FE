@@ -1,15 +1,91 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
 
 const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
-  console.log("User Detail Modal Data:", user);
-  console.log("Additional Data:", additionalData);
+  const [messageInput, setMessageInput] = useState("");
+  const [fileInput, setFileInput] = useState(null);
+  const [conversation, setConversation] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-  const conversation = Array.isArray(additionalData) ? additionalData : [];
+  useEffect(() => {
+    const newSocket = io("http://103.171.85.30:4000");
+    setSocket(newSocket);
+
+    fetchChatHistory(user.senderId);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user.senderId]);
+
+  const fetchChatHistory = async (receiverId) => {
+    try {
+      const response = await fetch(
+        `https://keydentalcare.isepwebtim.my.id/chat/riwayat/${receiverId}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const chatData = await response.json();
+      setConversation(chatData);
+
+      const chatBox = document.getElementById("chatBox");
+      if (chatBox) {
+        scrollToBottom(chatBox);
+      }
+    } catch (error) {
+      console.error("Error fetching chat data:", error);
+    }
+  };
+
+  const scrollToBottom = (element) => {
+    element.scrollTop = element.scrollHeight;
+  };
+
+  const markAsRead = (messageId) => {
+    socket.emit("messageRead", { messageId });
+  };
+
+  const sendMessage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", fileInput);
+
+      const uploadResponse = await fetch(
+        "https://keydentalcare.isepwebtim.my.id/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!uploadResponse.ok) {
+        throw new Error(`HTTP error! Status: ${uploadResponse.status}`);
+      }
+
+      const uploadData = await uploadResponse.json();
+      const { imagePath } = uploadData;
+
+      socket.emit("sendMessage", {
+        senderId: 13,
+        receiverId: user.senderId,
+        message: messageInput,
+        imagePath,
+      });
+
+      setMessageInput("");
+      setFileInput(null);
+
+      fetchChatHistory(user.senderId);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg w-[800px] h-[550px]">
-        {/* Konten Utama */}
         <div className="flex flex-col h-full justify-between">
           <div>
             <div className="flex justify-between items-center mb-3">
@@ -26,7 +102,10 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
             </div>
 
             {conversation.length > 0 ? (
-              <div className="max-h-96 overflow-y-auto overflow-x-hidden">
+              <div
+                className="max-h-96 overflow-y-auto overflow-x-hidden"
+                id="chatBox"
+              >
                 <ul className="space-y-2">
                   {conversation.map((message, index) => (
                     <li
@@ -55,14 +134,18 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
             )}
           </div>
 
-          {/* Container Input dan Tombol */}
           <div className="flex items-center space-x-2 mt-4">
             <input
               type="text"
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
               className="border w-full border-gray-300 px-3 py-2 rounded-full focus:outline-none focus:ring focus:border-blue-500"
               placeholder="Type your message..."
             />
-            <button className="bg-[#21695C] hover:bg-[#8da5a1] text-white font-bold py-2 px-4 rounded-lg">
+            <button
+              onClick={sendMessage}
+              className="bg-[#21695C] hover:bg-[#8da5a1] text-white font-bold py-2 px-4 rounded-lg"
+            >
               Send
             </button>
           </div>
