@@ -44,20 +44,6 @@ const Konsultasi = () => {
 
   const handleUserClick = async (user) => {
     setSelectedUser(user);
-    try {
-      const response = await fetch(
-        `https://keydentalcare.isepwebtim.my.id/chat/riwayat/${user.senderId}`
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setAdditionalData(data);
-    } catch (error) {
-      console.error("Error fetching additional data:", error);
-    }
   };
 
   const handleCloseModal = () => {

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
-const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
-  const [messageInput, setMessageInput] = useState("");
-  const [fileInput, setFileInput] = useState(null);
+const UserDetailModal = ({ user, onCloseModal }) => {
   const [conversation, setConversation] = useState([]);
+  const [messageInput, setMessageInput] = useState("");
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
@@ -18,11 +17,24 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
     };
   }, [user.senderId]);
 
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("receivedMessage", (newMessage) => {
+      setConversation((prevConversation) => [...prevConversation, newMessage]);
+    });
+
+    return () => {
+      socket.off("receivedMessage");
+    };
+  }, [socket]);
+
   const fetchChatHistory = async (receiverId) => {
     try {
       const response = await fetch(
         `https://keydentalcare.isepwebtim.my.id/chat/riwayat/${receiverId}`
       );
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -43,14 +55,14 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
     element.scrollTop = element.scrollHeight;
   };
 
-  const markAsRead = (messageId) => {
-    socket.emit("messageRead", { messageId });
+  const handleCloseClick = () => {
+    onCloseModal();
   };
 
   const sendMessage = async () => {
     try {
       const formData = new FormData();
-      formData.append("image", fileInput);
+      formData.append("image", messageInput);
 
       const uploadResponse = await fetch(
         "https://keydentalcare.isepwebtim.my.id/upload",
@@ -67,17 +79,18 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
       const uploadData = await uploadResponse.json();
       const { imagePath } = uploadData;
 
-      socket.emit("sendMessage", {
+      const newMessage = {
         senderId: 13,
         receiverId: user.senderId,
         message: messageInput,
-        imagePath,
-      });
+        imagePath: imagePath,
+      };
+
+      socket.emit("sendMessage", newMessage);
+
+      setConversation((prevConversation) => [...prevConversation, newMessage]);
 
       setMessageInput("");
-      setFileInput(null);
-
-      fetchChatHistory(user.senderId);
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -90,48 +103,49 @@ const UserDetailModal = ({ user, additionalData, onCloseModal }) => {
           <div>
             <div className="flex justify-between items-center mb-3">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
-                {user?.senderName}
+                {user.senderName}
               </h3>
               <button
-                onClick={onCloseModal}
+                onClick={handleCloseClick}
                 type="button"
                 className="inline-flex justify-center items-center rounded-md border border-transparent p-2 text-base font-medium text-white hover:bg-[#dadada] focus:outline-none focus:ring-2 focus:ring-offset-2"
               >
                 <img className="w-4 h-4" src="/close.svg" alt="Close Icon" />
               </button>
             </div>
-
-            {conversation.length > 0 ? (
-              <div
-                className="max-h-96 overflow-y-auto overflow-x-hidden"
-                id="chatBox"
-              >
-                <ul className="space-y-2">
-                  {conversation.map((message, index) => (
-                    <li
-                      key={index}
-                      className={`flex ${
+            <div
+              className="max-h-96 overflow-y-auto overflow-x-hidden"
+              id="chatBox"
+            >
+              <ul className="space-y-2">
+                {conversation.map((message, index) => (
+                  <li
+                    key={index}
+                    className={`flex ${
+                      message.senderId === user.senderId
+                        ? "justify-start"
+                        : "justify-end"
+                    }`}
+                  >
+                    <div
+                      className={`p-3 max-w-[70%] rounded-2xl ${
                         message.senderId === user.senderId
-                          ? "justify-start"
-                          : "justify-end"
+                          ? "bg-gray-200"
+                          : "bg-[#21695C] text-white"
                       }`}
                     >
-                      <div
-                        className={`p-3 max-w-[70%] rounded-2xl ${
-                          message.senderId === user.senderId
-                            ? "bg-gray-200"
-                            : "bg-[#21695C] text-white"
-                        }`}
-                      >
-                        <p>{message.message}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <p className="text-center">No messages available.</p>
-            )}
+                      <p>{message.message}</p>
+                      {message.imagePath && (
+                        <img
+                          src={`https://keydentalcare.isepwebtim.my.id/${message.imagePath}`}
+                          alt="Uploaded"
+                        />
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="flex items-center space-x-2 mt-4">
