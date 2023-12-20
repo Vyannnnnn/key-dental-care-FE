@@ -108,7 +108,7 @@
     function sendMessage() {
       const message = document.getElementById("messageInput").value;
       const senderId = 13;
-      const receiverId = 5;
+      const receiverId = 21;
       const fileInput = document.getElementById("imageInput");
       const file = fileInput.files[0];
 
@@ -144,7 +144,7 @@
       const chatLog = document.getElementById("chatLog");
       const previousScrollHeight = chatLog.scrollHeight;
 
-      fetch(`https://keydentalcare.isepwebtim.my.id/chat/riwayat/5`)
+      fetch(`https://keydentalcare.isepwebtim.my.id/chat/riwayat/21`)
         .then((response) => response.json())
         .then((chatData) => {
           chatData.forEach((chat) => {

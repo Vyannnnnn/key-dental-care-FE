@@ -32,6 +32,11 @@ const Home = () => {
       <Navbar />
       <div className="mx-24 mt-10 mb-20 rounded-3xl bg-teal-50 w-10/12 h-auto">
         <div className="p-16">
+          <h1 className="text-4xl font-bold leading-10">
+            Yuk, Lebih Peduli pada Kesehatan <br /> Gigi! Dapatkan Senyuman
+            <br />
+            Sehat untuk Kebahagiaanmu
+          </h1>
           <p className="text-xl font-sans text-gray-500 py-8">
             Banyak yang masih nggak peduliin kesehatan gigi, padahal bisa
             berdampak vital banget sama keseharian kita! Mungkin karena belum

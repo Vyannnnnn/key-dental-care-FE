@@ -7,7 +7,13 @@ const Navbar = (props) => {
     <nav className="">
       <div className="bg-[#21695C] h-[100px] flex items-center text-white px-[32px] justify-end">
         <p>Rima Yunita</p>
-        <div className="h-[36px] w-[36px] bg-white rounded-full ml-[13px]"></div>
+        <div className="h-[36px] w-[36px] bg-white rounded-full ml-[13px]">
+          <img
+            src="../../../public/image.jpg"
+            alt=""
+            className="rounded-full h-[36px] w-[36px]"
+          />
+        </div>
       </div>
       <div className="px-[31px] pt-[31px] bg-[#f8fafc]">
         <p className="text-[14px] text-black">
