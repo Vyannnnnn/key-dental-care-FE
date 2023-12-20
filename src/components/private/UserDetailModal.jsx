@@ -6,6 +6,8 @@ const UserDetailModal = ({ user, onCloseModal }) => {
   const [messageInput, setMessageInput] = useState("");
   const [socket, setSocket] = useState(null);
 
+  // console.log(user.senderId);
+
   useEffect(() => {
     const newSocket = io("http://103.171.85.30:4000");
     setSocket(newSocket);
@@ -28,6 +30,14 @@ const UserDetailModal = ({ user, onCloseModal }) => {
       socket.off("receivedMessage");
     };
   }, [socket]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchChatHistory(user.senderId);
+    }, 100);
+
+    return () => clearInterval(intervalId);
+  }, [user.senderId]);
 
   const fetchChatHistory = async (receiverId) => {
     try {
