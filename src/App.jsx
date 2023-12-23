@@ -31,7 +31,7 @@ function App() {
         <Route path="/admin/data_program" element={<DataProgram />} />
         <Route path="/admin/jadwal" element={<Jadwal />} />
         <Route path="/admin/konsultasi" element={<Konsultasi />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
