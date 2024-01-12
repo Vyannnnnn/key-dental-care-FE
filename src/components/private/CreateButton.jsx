@@ -1,19 +1,21 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const CreateButton = ({ onDataAdded }) => {
+const CreateButton = ({ onDataAdded, authToken }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     Nama_Program: "",
     Harga: "",
     Deskripsi: "",
-    Thumbnail: "",
+    Thumbnail: null,
   });
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: type === "file" ? e.target.files[0] : value,
     });
   };
 
@@ -27,31 +29,48 @@ const CreateButton = ({ onDataAdded }) => {
       Nama_Program: "",
       Harga: "",
       Deskripsi: "",
-      Thumbnail: "",
+      Thumbnail: null,
     });
   };
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("Nama_Program", formData.Nama_Program);
+    formDataToSend.append("Harga", formData.Harga);
+    formDataToSend.append("Deskripsi", formData.Deskripsi);
+    formDataToSend.append("thumbnail", formData.Thumbnail);
+
     try {
       const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/programs/",
+        "https://keydentalcare.isepwebtim.my.id/api/program",
         {
           method: "POST",
+          body: formDataToSend,
           headers: {
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`,
           },
-          body: JSON.stringify(formData),
         }
       );
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error Data:", errorData);
         throw new Error(errorData.error);
       }
 
-      console.log("Data berhasil ditambahkan!");
+      const responseData = await response.json();
+      console.log("Response Data:", responseData);
+
+      toast.success("Data program berhasil ditambahkan!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
 
       if (onDataAdded) {
         onDataAdded();
@@ -60,6 +79,14 @@ const CreateButton = ({ onDataAdded }) => {
       handleCloseModal();
     } catch (error) {
       console.error("Error saat menambahkan data:", error.message);
+      toast.error(`Error: ${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
@@ -130,9 +157,9 @@ const CreateButton = ({ onDataAdded }) => {
                           Thumbnail
                         </label>
                         <input
-                          type="text"
+                          type="file"
                           name="Thumbnail"
-                          value={formData.Thumbnail}
+                          accept="image/*"
                           onChange={handleInputChange}
                           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                         />
@@ -161,6 +188,17 @@ const CreateButton = ({ onDataAdded }) => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

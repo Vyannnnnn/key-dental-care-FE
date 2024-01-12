@@ -18,8 +18,18 @@ const DataProgram = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
+
+      const accessToken = localStorage.getItem("accessToken");
+      console.log(accessToken);
       const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/program"
+        "https://keydentalcare.isepwebtim.my.id/api/program",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       if (!response.ok) {

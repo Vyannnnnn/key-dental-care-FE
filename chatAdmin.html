@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Chat</title>
+</head>
+
+<body>
+  <h1>Admin Chat</h1>
+  <div id="usersList"></div>
+  <div id="chatLog"></div>
+  <input type="text" id="message" placeholder="Type your message" />
+  <button onclick="sendMessage()">Send</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+  <script>
+    const socket = io("https://keydentalcare.isepwebtim.my.id");
+
+    function startConversation(userId) {
+      socket.emit("startConversation", { userId });
+    }
+
+    socket.on("receiveMessage", (data) => {
+      const chatLog = document.getElementById("chatLog");
+      chatLog.innerHTML += `<p>${data.senderId}: ${data.message}</p>`;
+    });
+
+    function sendMessage() {
+      const message = document.getElementById("message").value;
+      socket.emit("sendMessage", { message });
+    }
+
+    fetch("https://keydentalcare.isepwebtim.my.id/admin-chats")
+      .then((response) => response.json())
+      .then((users) => {
+        const usersList = document.getElementById("usersList");
+        users.forEach((user) => {
+          const userDiv = document.createElement("div");
+
+          const userImage = document.createElement("img");
+          userImage.src = `http://localhost:3000/img/${user.profileSender}`;
+          userImage.height = 50;
+          userImage.style.borderRadius = "50%";
+
+          const username = document.createElement("span");
+          username.innerText = `User Nama: ${user.senderName}`;
+
+          userDiv.appendChild(userImage);
+          userDiv.appendChild(username);
+
+          const userId = user.senderId;
+
+          const startChatButton = document.createElement("button");
+          startChatButton.innerText = "Chat";
+          startChatButton.addEventListener("click", () => {
+            startConversation(userId);
+            window.open(`http://localhost:3000/chat/${userId}`, "_blank");
+          });
+
+          userDiv.appendChild(startChatButton);
+          usersList.appendChild(userDiv);
+        });
+      })
+      .catch((error) => console.error("Error fetching users:", error));
+  </script>
+</body>
+
+</html>

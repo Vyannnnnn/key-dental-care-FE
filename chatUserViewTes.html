@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat History & User Chat</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #chatBox {
+        width: 400px;
+        height: 500px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      .message {
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        max-width: 70%;
+      }
+      .ownMessage {
+        background-color: #dcf8c6;
+        align-self: flex-end;
+      }
+      .adminMessage {
+        background-color: #f1f1f1;
+      }
+      .message p {
+        margin: 0;
+      }
+      .message .sender {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      .message .timestamp {
+        font-size: 0.8em;
+        color: #888;
+      }
+      .readStatus {
+        cursor: pointer;
+        font-size: 0.8em;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Chat History & User Chat</h1>
+    <div id="chatBox"></div>
+    <input type="text" id="messageInput" placeholder="Type your message" />
+    <input type="number" id="senderId" placeholder="id" />
+    <input type="file" id="imageInput" accept="image/*" />
+    <button onclick="sendMessage()">Send</button>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <script>
+      const socket = io("http://103.171.85.30:4000");
+
+      socket.on("connect", function () {
+        console.log("Terhubung ke server socket.io");
+      });
+
+      socket.on("connect_error", function (error) {
+        console.error("Gagal terhubung ke server socket.io:", error);
+      });
+
+      let previousScrollHeight = 0;
+
+      const chatBox = document.getElementById("chatBox");
+
+      function markAsRead(messageId) {
+        socket.emit("messageRead", { messageId });
+      }
+
+      function fetchChatHistory(id) {
+        fetch(`https://keydentalcare.isepwebtim.my.id/chat/riwayat/${id}`)
+          .then((response) => response.json())
+          .then((chatData) => {
+            chatData.forEach((chat) => {
+              const messageDiv = document.createElement("div");
+              messageDiv.classList.add("message");
+              if (chat.senderId === 13) {
+                messageDiv.classList.add("adminMessage");
+              } else {
+                messageDiv.classList.add("ownMessage");
+              }
+
+              let messageContent = "";
+              console.log(chat.lampiran_gambar);
+
+              if (chat.lampiran_gambar) {
+                const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${chat.lampiran_gambar}`;
+                messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(
+                  chat.timestamp
+                ).toLocaleString()}</p>
+                <p class="readStatus" data-messageId="${
+                  chat.messageId
+                }" onclick="markAsRead(${chat.messageId})">${
+                  chat.status === "terkirim" ? "✓✓" : "✓"
+                }</p>`;
+              } else if (chat.message) {
+                messageContent += `
+                <p><span class="sender">${chat.senderName}</span>: ${
+                  chat.message
+                }</p>
+               <p class="timestamp">${new Date(
+                 chat.timestamp
+               ).toLocaleString()}</p>
+                <p class="readStatus" data-messageId="${
+                  chat.messageId
+                }" onclick="markAsRead(${chat.messageId})">${
+                  chat.status === "terkirim" ? "✓✓" : "✓"
+                }</p>
+              `;
+              }
+
+              messageDiv.innerHTML = messageContent;
+              chatBox.appendChild(messageDiv);
+            });
+            setTimeout(() => {
+              chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100);
+          })
+          .catch((error) => {
+            console.error("Error fetching chat data:", error);
+          })
+          .finally(() => {
+            const diff = chatBox.scrollHeight - previousScrollHeight;
+            chatBox.scrollTop = chatBox.scrollHeight - diff;
+          });
+      }
+
+      window.addEventListener("load", () => {
+        fetchChatHistory(1);
+        setTimeout(() => {
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 100);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+
+      function sendMessage() {
+        console.log("Trying to send a message...");
+        const message = document.getElementById("messageInput").value;
+        const senderId = document.getElementById("senderId").value;
+        const receiverId = 13;
+        const fileInput = document.getElementById("imageInput");
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        fetch(`https://keydentalcare.isepwebtim.my.id/upload`, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const { imagePath } = data;
+            socket.emit("sendMessage", {
+              senderId,
+              receiverId,
+              message,
+              imagePath,
+            });
+            setTimeout(() => {
+              chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100);
+          })
+          .catch((error) => {
+            console.error("Error sending message:", error);
+          });
+
+        console.log("Trying to 2 send a message...");
+      }
+
+      socket.on("receiveMessage", (data) => {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+        if (data.senderId === 13) {
+          messageDiv.classList.add("adminMessage");
+        } else {
+          messageDiv.classList.add("ownMessage");
+        }
+
+        let messageContent = `
+          <p><span class="sender">${data.senderName}</span>: ${data.message}</p>
+          <p class="timestamp">${new Date(data.timestamp).toLocaleString()}</p>
+          <p class="readStatus" onclick="markAsRead(${data.messageId})">${
+          data.status === "terkirim" ? "✓✓" : "✓"
+        }</p>
+        `;
+
+        if (data.lampiran_gambar) {
+          const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${data.lampiran_gambar}`;
+          messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/>`;
+        }
+
+        setTimeout(() => {
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 100);
+
+        messageDiv.innerHTML = messageContent;
+        chatBox.appendChild(messageDiv);
+      });
+
+      socket.on("messageReadConfirmation", ({ messageId }) => {
+        const readStatusElements = document.querySelectorAll(".readStatus");
+        readStatusElements.forEach((element) => {
+          const id = element.getAttribute("data-messageId");
+          if (id === messageId.toString()) {
+            element.textContent = "✓✓";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

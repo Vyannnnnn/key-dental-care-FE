@@ -44,15 +44,23 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const errorData = await response.text();
+        throw new Error(
+          `HTTP error! Status: ${response.status}, Data: ${errorData}`
+        );
       }
 
-      const data = await response.json();
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-
-      toast.success("Changes saved successfully!");
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        setTimeout(() => {
+          onClose();
+        }, 1000);
+        toast.success("Changes saved successfully!");
+        console.log("Data added successfully:", data);
+      } else {
+        throw new Error("Invalid JSON response from the server");
+      }
     } catch (error) {
       console.error("Error saving changes:", error.message);
       setError("Error saving changes. Please try again.");
@@ -124,9 +132,8 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Thumbnail</label>
                   <input
-                    type="text"
+                    type="file"
                     name="Thumbnail"
-                    value={editedData.Thumbnail || ""}
                     onChange={handleInputChange}
                     className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                   />

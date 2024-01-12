@@ -2,42 +2,54 @@ import React, { useState, useEffect } from "react";
 import Navigation from "../../../components/private/Navigation";
 import Navbar from "../../../components/private/Navbar";
 import Footer from "../../../components/private/Footer";
-import ChatContent from "../../../components/private/ChatContent";
 import { ScaleLoader } from "react-spinners";
+import UserDetailModal from "../../../components/private/UserDetailModal";
 
 const Konsultasi = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [additionalData, setAdditionalData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
+
         const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/api/chats"
+          "https://keydentalcare.isepwebtim.my.id/admin-chats",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
         );
-        console.log("Response:", response);
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log("Data:", data);
-
         setChats(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  console.log("Chatsnya adalah:", chats);
+  const handleUserClick = async (user) => {
+    setSelectedUser(user);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+    setAdditionalData(null);
+  };
 
   return (
     <div className="layout flex">
@@ -65,7 +77,31 @@ const Konsultasi = () => {
                       </div>
                     </div>
                   ) : chats && chats.length > 0 ? (
-                    <ChatContent data={chats && chats.chats} dataType="chats" />
+                    <div>
+                      {chats.map((chat, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleUserClick(chat)}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <div className="border-b-2 border-black pb-2 mb-3">
+                            <div className="flex">
+                              <div className="w-16 h-16">
+                                <img
+                                  className="w-full h-full rounded-full"
+                                  src={`https://keydentalcare.isepwebtim.my.id/img/${chat.profileSender}`}
+                                  alt=""
+                                />
+                              </div>
+                              <div className="p-2">
+                                <p>{chat.senderName}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div></div>
+                        </div>
+                      ))}
+                    </div>
                   ) : (
                     <p className="text-center">Tidak ada chat</p>
                   )}
@@ -76,6 +112,13 @@ const Konsultasi = () => {
         </div>
         <Footer />
       </main>
+      {selectedUser && (
+        <UserDetailModal
+          user={selectedUser}
+          additionalData={additionalData}
+          onCloseModal={handleCloseModal}
+        />
+      )}
     </div>
   );
 };
