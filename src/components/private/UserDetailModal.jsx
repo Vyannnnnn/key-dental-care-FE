@@ -7,7 +7,8 @@ const UserDetailModal = ({ user, onCloseModal }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io("http://103.171.85.30:4000");
+    // const newSocket = io("http://103.171.85.30:3000");
+    const newSocket = io("http://localhost:3000");
     setSocket(newSocket);
 
     fetchChatHistory(user.senderId);
@@ -32,7 +33,7 @@ const UserDetailModal = ({ user, onCloseModal }) => {
   const fetchChatHistory = async (receiverId) => {
     try {
       const response = await fetch(
-        `https://keydentalcare.isepwebtim.my.id/chat/riwayat/${receiverId}`
+        `http://localhost:3000/chat/riwayat/${receiverId}`
       );
 
       if (!response.ok) {
@@ -65,7 +66,7 @@ const UserDetailModal = ({ user, onCloseModal }) => {
       formData.append("image", messageInput);
 
       const uploadResponse = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/upload",
+        "http://localhost:3000/upload",
         {
           method: "POST",
           body: formData,
@@ -137,7 +138,7 @@ const UserDetailModal = ({ user, onCloseModal }) => {
                       <p>{message.message}</p>
                       {message.imagePath && (
                         <img
-                          src={`https://keydentalcare.isepwebtim.my.id/${message.imagePath}`}
+                          src={`http://localhost:3000/${message.imagePath}`}
                           alt="Uploaded"
                         />
                       )}

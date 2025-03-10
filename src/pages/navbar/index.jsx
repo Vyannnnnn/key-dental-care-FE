@@ -36,9 +36,9 @@ const Navbar = () => {
   return (
     <nav className={navbarClass}>
       <div className="container mx-auto flex items-center justify-between">
-        <div className="text-gray-500 font-bold text-xl flex items-center">
+        <div className="text-gray-500 font-bold text-xl flex items-center my-2">
           <a href="/">
-            <img className="h-20 w-24 ml-16" src="/logo.svg" alt="Logo" />
+            <img className="h-20 w-24 lg:w-28 ml-16" src="/logo.svg" alt="Logo" />
           </a>
         </div>
 

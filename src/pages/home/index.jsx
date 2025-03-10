@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="mx-24 mt-10 mb-20 rounded-3xl bg-teal-50 w-10/12 h-auto">
+      <div className="mx-36 mt-10 lg:my-16 mb-20 rounded-3xl bg-teal-50 w-auto h-auto">
         <div className="p-16">
           <h1 className="text-4xl font-bold leading-10">
             Yuk, Lebih Peduli pada Kesehatan <br /> Gigi! Dapatkan Senyuman

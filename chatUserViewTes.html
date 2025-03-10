@@ -55,7 +55,7 @@
     <button onclick="sendMessage()">Send</button>
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
     <script>
-      const socket = io("http://103.171.85.30:4000");
+      const socket = io("http://localhost:3000");
 
       socket.on("connect", function () {
         console.log("Terhubung ke server socket.io");
@@ -74,7 +74,7 @@
       }
 
       function fetchChatHistory(id) {
-        fetch(`https://keydentalcare.isepwebtim.my.id/chat/riwayat/${id}`)
+        fetch(`http://localhost:3000/chat/riwayat/${id}`)
           .then((response) => response.json())
           .then((chatData) => {
             chatData.forEach((chat) => {
@@ -90,7 +90,7 @@
               console.log(chat.lampiran_gambar);
 
               if (chat.lampiran_gambar) {
-                const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${chat.lampiran_gambar}`;
+                const imagePath = `http://localhost:3000/img/${chat.lampiran_gambar}`;
                 messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(
                   chat.timestamp
                 ).toLocaleString()}</p>
@@ -150,7 +150,7 @@
         const formData = new FormData();
         formData.append("image", file);
 
-        fetch(`https://keydentalcare.isepwebtim.my.id/upload`, {
+        fetch(`http://localhost:3000/upload`, {
           method: "POST",
           body: formData,
         })
@@ -192,7 +192,7 @@
         `;
 
         if (data.lampiran_gambar) {
-          const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${data.lampiran_gambar}`;
+          const imagePath = `http://localhost:3000/img/${data.lampiran_gambar}`;
           messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/>`;
         }
 

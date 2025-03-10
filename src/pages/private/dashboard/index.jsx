@@ -12,7 +12,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/api/dashboard"
+          "http://localhost:3000/api/dashboard"
         );
         const data = await response.json();
         setDashboardData(data);
@@ -62,7 +62,8 @@ const Dashboard = () => {
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
                         <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
+                        
+                          <Link className="text-white" to="/admin/data_pasien">
                             Show More
                           </Link>
                         </div>
@@ -78,7 +79,7 @@ const Dashboard = () => {
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
                         <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
+                          <Link className="text-white" to="/admin/data_antrian">
                             Show More
                           </Link>
                         </div>
@@ -94,7 +95,7 @@ const Dashboard = () => {
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
                         <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
+                          <Link className="text-white" to="/admin/data_program">
                             Show More
                           </Link>
                         </div>
@@ -112,7 +113,7 @@ const Dashboard = () => {
                           <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
                         </div>
                         <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
+                          <Link className="text-white" to="/admin/jadwal">
                             Show More
                           </Link>
                         </div>
@@ -125,10 +126,10 @@ const Dashboard = () => {
                               {dashboardData.chats || 0}
                             </p>
                           </div>
-                          <div className="bg-white h-[48px] w-[48px] rounded-full"></div>
+                          <div className="bg-white h-[48px]cdcd w-[48px] rounded-full"></div>
                         </div>
                         <div className="h-1/2 flex items-end">
-                          <Link className="text-white" to="">
+                          <Link className="text-white" to="/admin/konsultasi">
                             Show More
                           </Link>
                         </div>

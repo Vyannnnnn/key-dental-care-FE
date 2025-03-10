@@ -16,7 +16,7 @@ const DataPasien = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/api/patient"
+          "http://localhost:3000/api/patient"
         );
 
         if (!response.ok) {

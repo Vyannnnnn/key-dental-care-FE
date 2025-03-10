@@ -1,203 +1,191 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Chat Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    #chatLog {
-      width: 400px;
-      height: 500px;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .message {
-      padding: 5px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      max-width: 70%;
-    }
-
-    .ownMessage {
-      background-color: #dcf8c6;
-      align-self: flex-end;
-    }
-
-    .adminMessage {
-      background-color: #f1f1f1;
-    }
-
-    .message p {
-      margin: 0;
-    }
-
-    .message .sender {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-
-    .message .timestamp {
-      font-size: 0.8em;
-      color: #888;
-    }
-
-    .readStatus {
-      cursor: pointer;
-      font-size: 0.8em;
-      color: #888;
-    }
-  </style>
-</head>
-< <body>
-  <h1>Chat Page</h1>
-  <div id="chatLog"></div>
-  <input type="text" id="messageInput" placeholder="Type your message" />
-  <input type="file" id="imageInput" accept="image/*" />
-  <button onclick="sendMessage()">Send</button>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
-  <script>
-    const socket = io("http://103.171.85.30:4000");
-    const userId = window.location.pathname.split("/").pop();
-
-    socket.on("receiveMessage", (data) => {
-      const chatLog = document.getElementById("chatLog");
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("message");
-      if (data.senderId === 13) {
-        messageDiv.classList.add("ownMessage");
-      } else {
-        messageDiv.classList.add("adminMessage");
+  <head>
+    <title>Chat Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
       }
 
-      let messageContent = "";
+      #chatLog {
+        width: 400px;
+        height: 500px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+      }
 
-      if (data.lampiran_gambar) {
-        const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${data.lampiran_gambar}`;
-        messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(
-          data.timestamp
-        ).toLocaleString()}</p>
-          <p class="readStatus" data-messageId="${data.messageId
-          }" onclick="markAsRead(${data.messageId})">${data.status === "read" ? "✓✓" : "✓"
-          }</p>`;
-      } else if (data.message) {
-        messageContent += `
+      .message {
+        padding: 5px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        max-width: 70%;
+      }
+
+      .ownMessage {
+        background-color: #dcf8c6;
+        align-self: flex-end;
+      }
+
+      .adminMessage {
+        background-color: #f1f1f1;
+      }
+
+      .message p {
+        margin: 0;
+      }
+
+      .message .sender {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .message .timestamp {
+        font-size: 0.8em;
+        color: #888;
+      }
+
+      .readStatus {
+        cursor: pointer;
+        font-size: 0.8em;
+        color: #888;
+      }
+    </style>
+  </head>
+  <
+  <body>
+    <h1>Chat Page</h1>
+    <div id="chatLog"></div>
+    <input type="text" id="messageInput" placeholder="Type your message" />
+    <input type="file" id="imageInput" accept="image/*" />
+    <button onclick="sendMessage()">Send</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <script>
+      const socket = io("http://localhost:3000");
+      const userId = window.location.pathname.split("/").pop();
+      const chatBox = document.getElementById("chatLog");
+
+
+      socket.on("receiveMessage", (data) => {
+        const chatLog = document.getElementById("chatLog");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+        if (data.senderId === 13) {
+          messageDiv.classList.add("ownMessage");
+        } else {
+          messageDiv.classList.add("adminMessage");
+        }
+
+        let messageContent = "";
+
+        if (data.lampiran_gambar) {
+          const imagePath = `http://localhost:3000/img/${data.lampiran_gambar}`;
+          messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(data.timestamp).toLocaleString()}</p>
+          <p class="readStatus" data-messageId="${data.messageId}" onclick="markAsRead(${data.messageId})">${data.status === "read" ? "✓✓" : "✓"}</p>`;
+        } else if (data.message) {
+          messageContent += `
           <p><span class="sender">${data.senderName}</span>: ${data.message}</p>
           <p class="timestamp">${new Date(data.timestamp).toLocaleString()}</p>
-          <p class="readStatus" data-messageId="${data.messageId
-          }" onclick="markAsRead(${data.messageId})">${data.status === "read" ? "✓✓" : "✓"
-          }</p>
+          <p class="readStatus" data-messageId="${data.messageId}" onclick="markAsRead(${data.messageId})">${data.status === "read" ? "✓✓" : "✓"}</p>
         `;
+        }
+
+        messageDiv.innerHTML = messageContent;
+        chatLog.appendChild(messageDiv);
+
+        setTimeout(() => {
+          chatLog.scrollTop = chatLog.scrollHeight;
+        }, 100);
+      });
+
+      function sendMessage() {
+        const message = document.getElementById("messageInput").value;
+        const senderId = 13;
+        const receiverId = 21;
+        const fileInput = document.getElementById("imageInput");
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        fetch(`http://localhost:3000/upload`, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const { imagePath } = data;
+            socket.emit("sendMessage", {
+              senderId,
+              receiverId,
+              message,
+              imagePath,
+            });
+
+            setTimeout(() => {
+              chatBox.scrollTop = chatBox.scrollHeight;
+            }, 100);
+          })
+          .catch((error) => {
+            console.error("Error sending message:", error);
+          });
       }
 
-      messageDiv.innerHTML = messageContent;
-      chatLog.appendChild(messageDiv);
+      function markAsRead(messageId) {
+        socket.emit("messageRead", { messageId });
+      }
 
-      setTimeout(() => {
-        chatLog.scrollTop = chatLog.scrollHeight;
-      }, 100);
-    });
+      function fetchChatHistory(id) {
+        const chatLog = document.getElementById("chatLog");
+        const previousScrollHeight = chatLog.scrollHeight;
 
-    function sendMessage() {
-      const message = document.getElementById("messageInput").value;
-      const senderId = 13;
-      const receiverId = 21;
-      const fileInput = document.getElementById("imageInput");
-      const file = fileInput.files[0];
+        fetch(`http://localhost:3000/chat/riwayat/21`)
+          .then((response) => response.json())
+          .then((chatData) => {
+            chatData.forEach((chat) => {
+              const messageDiv = document.createElement("div");
+              messageDiv.classList.add("message");
+              if (chat.senderId === 13) {
+                messageDiv.classList.add("ownMessage");
+              } else {
+                messageDiv.classList.add("adminMessage");
+              }
 
-      const formData = new FormData();
-      formData.append("image", file);
+              let messageContent = "";
 
-      fetch(`https://keydentalcare.isepwebtim.my.id/upload`, {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          const { imagePath } = data;
-          socket.emit("sendMessage", {
-            senderId,
-            receiverId,
-            message,
-            imagePath,
-          });
-        });
-      setTimeout(() => {
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }, 100).catch((error) => {
-        console.error("Error sending message:", error);
-      });
-    }
-
-    function markAsRead(messageId) {
-      socket.emit("messageRead", { messageId });
-    }
-
-    function fetchChatHistory(id) {
-      const chatLog = document.getElementById("chatLog");
-      const previousScrollHeight = chatLog.scrollHeight;
-
-      fetch(`https://keydentalcare.isepwebtim.my.id/chat/riwayat/21`)
-        .then((response) => response.json())
-        .then((chatData) => {
-          chatData.forEach((chat) => {
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-            if (chat.senderId === 13) {
-              messageDiv.classList.add("ownMessage");
-            } else {
-              messageDiv.classList.add("adminMessage");
-            }
-
-            let messageContent = "";
-
-            if (chat.lampiran_gambar) {
-              const imagePath = `https://keydentalcare.isepwebtim.my.id/img/${chat.lampiran_gambar}`;
-              messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(
-                chat.timestamp
-              ).toLocaleString()}</p>
-                <p class="readStatus" data-messageId="${chat.messageId
-                }" onclick="markAsRead(${chat.messageId})">${chat.status === "terkirim" ? "✓✓" : "✓"
-                }</p>`;
-            } else if (chat.message) {
-              messageContent += `
-                <p><span class="sender">${chat.senderName}</span>: ${chat.message
-                }</p>
-                <p class="timestamp">${new Date(
-                  chat.timestamp
-                ).toLocaleString()}</p>
-                <p class="readStatus" data-messageId="${chat.messageId
-                }" onclick="markAsRead(${chat.messageId})">${chat.status === "terkirim" ? "✓✓" : "✓"
-                }</p>
+              if (chat.lampiran_gambar) {
+                const imagePath = `http://localhost:3000/img/${chat.lampiran_gambar}`;
+                messageContent += `<img src="${imagePath}" alt="Attachment" style="max-width: 100%;"/><p class="timestamp">${new Date(chat.timestamp).toLocaleString()}</p>
+                <p class="readStatus" data-messageId="${chat.messageId}" onclick="markAsRead(${chat.messageId})">${chat.status === "terkirim" ? "✓✓" : "✓"}</p>`;
+              } else if (chat.message) {
+                messageContent += `
+                <p><span class="sender">${chat.senderName}</span>: ${chat.message}</p>
+                <p class="timestamp">${new Date(chat.timestamp).toLocaleString()}</p>
+                <p class="readStatus" data-messageId="${chat.messageId}" onclick="markAsRead(${chat.messageId})">${chat.status === "terkirim" ? "✓✓" : "✓"}</p>
               `;
-            }
+              }
 
-            messageDiv.innerHTML = messageContent;
-            chatLog.appendChild(messageDiv);
+              messageDiv.innerHTML = messageContent;
+              chatLog.appendChild(messageDiv);
+            });
+
+            setTimeout(() => {
+              chatLog.scrollTop = chatLog.scrollHeight;
+            }, 100);
+          })
+          .catch((error) => {
+            console.error("Error fetching chat data:", error);
+          })
+          .finally(() => {
+            const diff = chatLog.scrollHeight - previousScrollHeight;
+            chatLog.scrollTop = chatLog.scrollHeight - diff;
           });
+      }
 
-          setTimeout(() => {
-            chatLog.scrollTop = chatLog.scrollHeight;
-          }, 100);
-        })
-        .catch((error) => {
-          console.error("Error fetching chat data:", error);
-        })
-        .finally(() => {
-          const diff = chatLog.scrollHeight - previousScrollHeight;
-          chatLog.scrollTop = chatLog.scrollHeight - diff;
-        });
-    }
-
-    fetchChatHistory(userId);
-  </script>
+      fetchChatHistory(userId);
+    </script>
   </body>
-
 </html>

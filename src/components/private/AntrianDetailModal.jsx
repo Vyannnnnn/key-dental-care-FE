@@ -2,20 +2,21 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
+const AntrianDetailModal = ({ isOpen, onClose, antrianData }) => {
   const [editedData, setEditedData] = useState({});
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
       setEditedData({
-        Nama_Program: programData?.nama_program || "",
-        Harga_Program: programData?.harga_program || "",
-        Deskripsi_Program: programData?.deskripsi_program || "",
-        Thumbnail: programData?.thumbnail || "",
+        Nama: antrianData?.nama || "",
+        Kode_Antrian: antrianData?.kode_antrian || "",
+        Pelayanan: antrianData?.pelayanan || "",
+        No_Telepon: antrianData?.no_telepon || "",
+        Hari_Tanggal: antrianData?.hari_tanggal || "",
       });
     }
-  }, [isOpen, programData]);
+  }, [isOpen, antrianData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,27 +28,23 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
 
   const handleSaveChanges = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/program/${programData.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            Nama_Program: editedData.Nama_Program,
-            Harga: editedData.Harga_Program,
-            Deskripsi: editedData.Deskripsi_Program,
-            Thumbnail: editedData.Thumbnail,
-          }),
-        }
-      );
+      const response = await fetch(`http://localhost:3000/api/queue/${antrianData.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Nama: editedData.Nama,
+          Kode_Antrian: editedData.Kode_Antrian,
+          Pelayanan: editedData.Pelayanan,
+          No_Telepon: editedData.No_Telepon,
+          Hari_Tanggal: editedData.Hari_Tanggal,
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.text();
-        throw new Error(
-          `HTTP error! Status: ${response.status}, Data: ${errorData}`
-        );
+        throw new Error(`HTTP error! Status: ${response.status}, Data: ${errorData}`);
       }
 
       const contentType = response.headers.get("content-type");
@@ -71,37 +68,33 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
     return null;
   }
 
-const handleDelete = async () => {
-  if (!programData?.id) {
-    setError("invalid program id");
-    return;
-  }
+  const handleDelete = async () => {
+    if (!antrianData?.id) {
+      setError("invalid antrian id");
+      return;
+    }
 
-  if (!window.confirm("Are you sure you want to delete")) {
-    return;
-  }
-  
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/program/${programData.id}`,
-      {
+    if (!window.confirm("Are you sure you want to delete")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/queue/${antrianData.id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(
-          `HTTP error! Status: ${response.status}, Data: ${errorData}`
-        );
+        throw new Error(`HTTP error! Status: ${response.status}, Data: ${errorData}`);
       }
       toast.success("Deleted program succesfully");
       setTimeout(() => {
         onClose();
       }, 1000);
-} catch (error){
-  console.error("Error deleting program:", error.message);
-  setError("Error deleting program. Please try again.");
-}
-}
+    } catch (error) {
+      console.error("Error deleting program:", error.message);
+      setError("Error deleting program. Please try again.");
+    }
+  };
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -115,59 +108,34 @@ const handleDelete = async () => {
             <div className="sm:flex sm:items-start">
               <div className="mt-3 w-full">
                 <div className="flex justify-between items-center mb-3">
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    Detail Program
-                  </h3>
+                  <h3 className="text-lg leading-6 font-medium text-gray-900">Detail Antrian</h3>
                   <button
                     onClick={onClose}
                     type="button"
                     className="inline-flex justify-center items-center rounded-md border border-transparent p-2 text-base font-medium text-white hover:bg-[#dadada] focus:outline-none focus:ring-2 focus:ring-offset-2"
                   >
-                    <img
-                      className="w-4 h-4"
-                      src="/close.svg"
-                      alt="Close Icon"
-                    />
+                    <img className="w-4 h-4" src="/close.svg" alt="Close Icon" />
                   </button>
                 </div>
                 <div className="mb-4">
-                  <label className="text-sm text-gray-500">Nama Program</label>
-                  <input
-                    type="text"
-                    name="Nama_Program"
-                    value={editedData.Nama_Program || ""}
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                  />
+                  <label className="text-sm text-gray-500">Nama</label>
+                  <input type="text" name="Nama" value={editedData.Nama || ""} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
                 <div className="mb-4">
-                  <label className="text-sm text-gray-500">Harga</label>
-                  <input
-                    type="text"
-                    name="Harga_Program"
-                    value={editedData.Harga_Program || ""}
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                  />
+                  <label className="text-sm text-gray-500">Kode Antrian</label>
+                  <input type="text" name="Kode_Antrian" value={editedData.Kode_Antrian || ""} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
                 <div className="mb-4">
-                  <label className="text-sm text-gray-500">Deskripsi</label>
-                  <input
-                    type="text"
-                    name="Deskripsi_Program"
-                    value={editedData.Deskripsi_Program || ""}
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                  />
+                  <label className="text-sm text-gray-500">Pelayanan</label>
+                  <input type="text" name="Pelayanan" value={editedData.Pelayanan || ""} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
                 <div className="mb-4">
-                  <label className="text-sm text-gray-500">Thumbnail</label>
-                  <input
-                    type="file"
-                    name="Thumbnail"
-                    onChange={handleInputChange}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                  />
+                  <label className="text-sm text-gray-500">No. Telepon</label>
+                  <input type="text" name="No_Telepon" value={editedData.No_Telepon} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
+                </div>
+                <div className="mb-4">
+                  <label className="text-sm text-gray-500">Hari & Tanggal</label>
+                  <input type="text" name="Hari_Tanggal" value={editedData.Hari_Tanggal} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
               </div>
             </div>
@@ -191,19 +159,9 @@ const handleDelete = async () => {
           {error && <div className="text-red-500 mt-4">{error}</div>}
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 };
 
-export default ProgramDetailModal;
+export default AntrianDetailModal;

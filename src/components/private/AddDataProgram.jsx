@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateButton = ({ onDataAdded, authToken }) => {
+const AddDataProgram = ({ onDataAdded, authToken }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     Nama_Program: "",
@@ -44,7 +44,7 @@ const CreateButton = ({ onDataAdded, authToken }) => {
 
     try {
       const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/program",
+        "http://localhost:3000/api/program",
         {
           method: "POST",
           body: formDataToSend,
@@ -203,4 +203,4 @@ const CreateButton = ({ onDataAdded, authToken }) => {
   );
 };
 
-export default CreateButton;
+export default AddDataProgram;

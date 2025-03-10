@@ -5,7 +5,7 @@ import { MotionAnimate } from "react-motion-animate";
 
 const Testimonial = () => {
   return (
-    <div className="bg-[#EEEEEE] h-screen mb-28">
+    <div className="bg-[#EEEEEE] lg:h-[70vh] mb-28 lg:py-10">
       <div className="text-center mx-28">
         <MotionAnimate animation="fadeInUp" reset={true}>
           <h1 className="text-4xl font-sans font-bold pt-10">Testimoni</h1>

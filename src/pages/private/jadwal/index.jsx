@@ -5,12 +5,15 @@ import Footer from "../../../components/private/Footer";
 import Table from "../../../components/private/Table";
 import { ScaleLoader } from "react-spinners";
 import TimetableDetailModal from "../../../components/private/TimetableDetailModal";
+import AddDataTimeTable from "../../../components/private/addDataTimeTable";
+// import SearchButton from "../../../components/private/FilterButton";
 
 const Jadwal = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [Timetable, setTimetable] = useState([]);
   const [selectedTimetable, setSelectedTimetable] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -18,9 +21,15 @@ const Jadwal = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/timetable"
-      );
+      setIsLoading(true);
+      const accessToken = localStorage.getItem("accessToken");
+      console.log(accessToken);
+      const response = await fetch("http://localhost:3000/api/timetable", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -55,11 +64,32 @@ const Jadwal = () => {
     fetchData();
   };
 
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+    fetchData();
+  };
+
   return (
     <div className="layout flex">
       <Navigation />
       <main className="flex flex-col grow">
-        <Navbar page="Jadwal" breadcrumb=" Jadwal" showCreateButton={false} />
+        {/* <Navbar 
+          page="Jadwal" 
+          breadcrumb=" Jadwal" 
+         
+        > 
+
+        <div className="flex items-center">
+          <AddDataTimeTable onDataAdded={fetchData} />
+        </div>
+        </Navbar> */}
+        <Navbar
+          page="Data Jadwal"
+          breadcrumb="Data Jadwal"
+          showAddDataTimeTable={true}
+          onDataAdded={fetchData}
+          showSearchButton={true}
+        />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px]">
             <div className="flex flex-col">
@@ -68,28 +98,14 @@ const Jadwal = () => {
                   {isLoading ? (
                     <div className="flex items-center justify-center h-40">
                       <div className="flex justify-around mt-8">
-                        <ScaleLoader
-                          color="#21695c"
-                          loading={isLoading}
-                          height={30}
-                        />
+                        <ScaleLoader color="#21695c" loading={isLoading} height={30} />
                       </div>
                     </div>
                   ) : (
                     <>
-                      <Table
-                        headers={headers}
-                        data={Timetable}
-                        iconType="edit"
-                        onActionButtonClick={(row) => detailTimetable(row)}
-                        actionButtonLabel="Edit"
-                        dataType="timetable"
-                      />
-                      <TimetableDetailModal
-                        isOpen={isModalOpen}
-                        onClose={closeModal}
-                        timetableData={selectedTimetable}
-                      />
+                      <Table headers={headers} data={Timetable} iconType="edit" onActionButtonClick={(row) => detailTimetable(row)} actionButtonLabel="Edit" dataType="timetable" />
+                      <TimetableDetailModal isOpen={isModalOpen} onClose={closeModal} timetableData={selectedTimetable} />
+                      {/* <AddDataTimeTable isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} onAddSuccess={fetchData} /> */}
                     </>
                   )}
                 </div>

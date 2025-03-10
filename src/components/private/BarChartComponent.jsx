@@ -5,7 +5,7 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
+  // CartesianGrid,
   Tooltip,
   Legend,
 } from "recharts";

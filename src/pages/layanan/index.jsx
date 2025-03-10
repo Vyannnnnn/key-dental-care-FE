@@ -17,9 +17,9 @@ const Layanan = () => {
     : "Layanan Lainnya \u2192";
 
   return (
-    <div id="layanan" className="">
-      <div className="text-center mx-28 mb-20">
-        <MotionAnimate animation="fadeInUp" reset={true}>
+    <div id="layanan" className=" mx-32 w-auto">
+      <div className="text-center mx-32 w-auto mb-20">
+        <MotionAnimate animation="fadeInUp" reset={true} >
           <h1 className="text-4xl font-sans font-bold pt-10">Layanan Kami</h1>
           <p className="text-xl font-sans pt-5 px-32 text-gray-500">
             Klinik kami menawarkan beragam layanan, mulai dari perawatan umum
@@ -28,7 +28,7 @@ const Layanan = () => {
           </p>
         </MotionAnimate>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-28 h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mx-20 h-[33rem]">
         {layananData.slice(0, visibleServices).map((layanan) => (
           <LayananCard
             key={layanan.id}
@@ -39,7 +39,7 @@ const Layanan = () => {
           />
         ))}
       </div>
-      <div className="flex justify-end mt-10 pr-12 mb-20">
+      <div className="flex justify-end mt-10 pr-20 mb-20">
         <button className="text-gray-500" onClick={handleCardClick}>
           {showAllText}
         </button>

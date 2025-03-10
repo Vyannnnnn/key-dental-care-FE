@@ -1,7 +1,7 @@
 import { BsFileEarmarkText } from "react-icons/bs";
 import { GoPencil } from "react-icons/go";
 
-const Table = ({ headers, data, isLoading, iconType, onActionButtonClick,onActionButtonClick2, actionButtonLabel, actionButtonLabel2, dataType }) => {
+const tableAntrian = ({ headers, data, isLoading, iconType, onActionButtonClick, onActionButtonClick2, actionButtonLabel, actionButtonLabel2, dataType }) => {
   const dataArray = Array.isArray(data[dataType]) ? data[dataType] : [];
 
   const getIconComponent = (iconType) => {
@@ -79,4 +79,4 @@ const Table = ({ headers, data, isLoading, iconType, onActionButtonClick,onActio
   );
 };
 
-export default Table;
+export default tableAntrian;

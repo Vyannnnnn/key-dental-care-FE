@@ -14,7 +14,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
   <script>
-    const socket = io("https://keydentalcare.isepwebtim.my.id");
+    const socket = io("http://localhost:3000");
 
     function startConversation(userId) {
       socket.emit("startConversation", { userId });
@@ -30,7 +30,7 @@
       socket.emit("sendMessage", { message });
     }
 
-    fetch("https://keydentalcare.isepwebtim.my.id/admin-chats")
+    fetch("http://localhost:3000/admin-chats")
       .then((response) => response.json())
       .then((users) => {
         const usersList = document.getElementById("usersList");

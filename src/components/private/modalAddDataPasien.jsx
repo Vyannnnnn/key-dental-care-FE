@@ -4,7 +4,7 @@ const apiEndpoint = "http://localhost:1234/get";
 
 const ModalAddDataPasien = ({ isOpen, onClose }) => {
   const [data, setData] = useState(null);
-
+  const apiEndpoint = "http://localhost:1234/get";
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -10,16 +10,13 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/auth/signin",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch("http://localhost:3000/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -41,25 +38,12 @@ const LoginForm = () => {
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
 
       <form className="w-[350px]">
         <div className="grid grid-cols-1 gap-6 mt-4">
           <div>
-            <label
-              className="text-gray-700 dark:text-gray-200"
-              htmlFor="emailAddress"
-            >
+            <label className="text-gray-700 dark:text-gray-200" htmlFor="emailAddress">
               Email Address
             </label>
             <input
@@ -73,10 +57,7 @@ const LoginForm = () => {
 
           <div>
             <div className="flex justify-between">
-              <label
-                className="text-gray-700 dark:text-gray-200"
-                htmlFor="password"
-              >
+              <label className="text-gray-700 dark:text-gray-200" htmlFor="password">
                 Password
               </label>
               <a href="/forgot_password" className="text-[#21695C]">
@@ -99,21 +80,14 @@ const LoginForm = () => {
               value=""
               className="accent-[#21695C] w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-greeen-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label
-              htmlFor="disabled-checkbox"
-              className="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500"
-            >
+            <label htmlFor="disabled-checkbox" className="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">
               Keep me signed in
             </label>
           </div>
         </div>
 
         <div className="flex justify-end mt-6">
-          <button
-            type="button"
-            onClick={handleLogin}
-            className="text-center w-full px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-[#21695C] rounded-md hover:bg-[#165549] focus:outline-none focus:bg-[#165549]"
-          >
+          <button type="button" onClick={handleLogin} className="text-center w-full px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-[#21695C] rounded-md hover:bg-[#165549] focus:outline-none focus:bg-[#165549]">
             Login
           </button>
         </div>

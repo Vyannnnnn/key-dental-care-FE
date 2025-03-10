@@ -15,32 +15,20 @@ const Konsultasi = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-
-        const response = await fetch(
-          "https://keydentalcare.isepwebtim.my.id/admin-chats",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
+        const response = await fetch("http://localhost:3000/chat/riwayat/21");
         const data = await response.json();
+        console.log("Data Chat:", data);
         setChats(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching chat:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   const handleUserClick = async (user) => {
     setSelectedUser(user);
@@ -74,7 +62,7 @@ const Konsultasi = () => {
                           loading={isLoading}
                           height={30}
                         />
-                      </div>
+                      </div>        
                     </div>
                   ) : chats && chats.length > 0 ? (
                     <div>
@@ -89,7 +77,7 @@ const Konsultasi = () => {
                               <div className="w-16 h-16">
                                 <img
                                   className="w-full h-full rounded-full"
-                                  src={`https://keydentalcare.isepwebtim.my.id/img/${chat.profileSender}`}
+                                  src={`http://localhost:3000/img/${chat.profileSender}`}
                                   alt=""
                                 />
                               </div>

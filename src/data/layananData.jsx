@@ -21,43 +21,43 @@ const layananData = [
         id: 4, 
         url: '/gigi3.svg', 
         title: 'Pembersihan Karang Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 5, 
         url: '/gigi4.svg', 
         title: 'Perawatan Saluran Akar Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 6, 
         url: '/gigi5.svg', 
         title: 'Pemutihan  Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 7, 
         url: '/gigi6.svg', 
         title: 'Prothesa/Aplikasi Gigi Palsu', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 8, 
         url: '/gigi7.svg', 
         title: 'Pemasangan Permata Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 9, 
         url: '/gigi8.svg', 
         title: 'Aplikasi Veneer Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
     { 
         id: 10, 
         url: '/gigi9.svg', 
         title: 'Pemasangan Kawat Gigi', 
-        description: '' 
+        description: '(anak - dewasa)' 
     },
   ];
 

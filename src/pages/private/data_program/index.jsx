@@ -23,7 +23,7 @@ const DataProgram = () => {
       const accessToken = localStorage.getItem("accessToken");
       console.log(accessToken);
       const response = await fetch(
-        "https://keydentalcare.isepwebtim.my.id/api/program",
+        "http://localhost:3000/api/program",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -72,7 +72,8 @@ const DataProgram = () => {
         <Navbar
           page="Data Program"
           breadcrumb=" Data Program"
-          showCreateButton={true}
+          showAddDataProgram={true}
+          showSearchButton={true}
           onDataAdded={fetchData}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
@@ -89,6 +90,7 @@ const DataProgram = () => {
                           height={30}
                         />
                       </div>
+                      
                     </div>
                   ) : (
                     <>
