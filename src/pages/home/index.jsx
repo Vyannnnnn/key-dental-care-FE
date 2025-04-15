@@ -47,7 +47,11 @@ const Home = () => {
             href="https://play.google.com/store"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block rounded-full border-2 border-[#21695C] px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-[#21695C] hover:bg-[#21695C] hover:text-white focus:border-[#21695C] focus:text-black focus:outline-none focus:ring-0 active:border-[#21695C] active:text-white dark:hover:bg-white "
+            className="inline-block rounded-full border-2 border-[#21695C] px-6 
+            pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary 
+            transition duration-150 ease-in-out hover:border-[#21695C] hover:bg-[#21695C] 
+            hover:text-white focus:border-[#21695C] focus:text-black focus:outline-none 
+            focus:ring-0 active:border-[#21695C] active:text-white dark:hover:bg-white "
           >
             Download Sekarang
           </a>

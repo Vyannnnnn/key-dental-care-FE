@@ -1,10 +1,10 @@
 import React from "react";
 import AddDataProgram from "./AddDataProgram";
-import SearchButton from "./FilterButton";
+import FilterButton from "./FilterButton";
 import AddDataTimeTable from "./addDataTimeTable";
 import AddDataAntrian from "./AddDataAntrian";
 
-const Navbar = ({ breadcrumb, page, showAddDataProgram, showAddDataTimeTable, showAddDataAntrian,onDataAdded, showSearchButton, children }) => {
+const Navbar = ({ breadcrumb, page, showAddDataProgram, showAddDataTimeTable, showAddDataAntrian,onDataAdded, showFilterButton }) => {
   return (
     <nav>
       {/* Header */}
@@ -30,7 +30,7 @@ const Navbar = ({ breadcrumb, page, showAddDataProgram, showAddDataTimeTable, sh
             {showAddDataProgram && <AddDataProgram onDataAdded={onDataAdded} />}
             {showAddDataTimeTable && <AddDataTimeTable onDataAdded={onDataAdded} />}
             {showAddDataAntrian && <AddDataAntrian onDataAdded={onDataAdded} />}
-            {showSearchButton && <SearchButton />}
+            {showFilterButton && <FilterButton />}
           </div>
         </div>
       </div>

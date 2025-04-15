@@ -99,7 +99,7 @@ const DataAntrian = () => {
           showAddDataAntrian={true}
           // showAddDataTimeTable={true}
           // showAddDataProgram={true}
-          showSearchButton={true}
+          // showFilterButton={true}
           onDataAdded={fetchData}
         />
         <div className="content grow object-contain bg-[#f8fafc]">

@@ -43,7 +43,7 @@ const Dashboard = () => {
     <div className="layout flex">
       <Navigation />
       <main className="flex flex-col grow">
-        <Navbar page="Dashboard" breadcrumb="" showCreateButton={false} />
+        <Navbar page="Dashboard" breadcrumb="" />
         <div className="content grow object-contain">
           <section className="container px-[39px] py-[39px]">
             <div className="flex flex-col">

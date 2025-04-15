@@ -73,7 +73,7 @@ const DataProgram = () => {
           page="Data Program"
           breadcrumb=" Data Program"
           showAddDataProgram={true}
-          showSearchButton={true}
+          // showFilterButton={true}
           onDataAdded={fetchData}
         />
         <div className="content grow object-contain bg-[#f8fafc]">

@@ -62,7 +62,6 @@ const DataPasien = () => {
         <Navbar
           page="Data Pasien"
           breadcrumb=" Data Pasien"
-          showCreateButton={false}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px]">

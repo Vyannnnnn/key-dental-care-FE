@@ -47,7 +47,7 @@ const Konsultasi = () => {
           page="Konsultasi"
           breadcrumb=" Konsultasi"
           showCreateButton={false}
-          showSearchButton={true}
+          // showFilterButton={true}
         />
         <div className="content grow object-contain bg-[#f8fafc]">
           <section className="container px-[39px] py-[39px]">

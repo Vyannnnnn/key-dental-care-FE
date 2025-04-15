@@ -52,10 +52,10 @@ const Table = ({ headers, data, isLoading, iconType, onActionButtonClick,onActio
                   </td>
                 ))}
                 <td>
-                  <div className="w-full h-full flex justify-center">
+                  <div className="w-full h-full flex justify-center gap-3">
                     {/* Tombol Pertama */}
                     {actionButtonLabel && (
-                      <button onClick={() => onActionButtonClick(row)} className="hover:text-white border p-2 hover:bg-[#21695c] rounded-md min-w-[100px] flex items-center justify-center text-[#21695c]">
+                      <button onClick={() => onActionButtonClick(row)} className="hover:text-white border p-2  hover:bg-[#21695c] rounded-md min-w-[100px] flex items-center justify-center text-[#21695c]">
                         <span className="mr-2">{getIconComponent(iconType)}</span>
                         {actionButtonLabel}
                       </button>
