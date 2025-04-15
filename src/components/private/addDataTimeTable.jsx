@@ -98,10 +98,10 @@ const AddDataTimeTable = ({ onDataAdded, authToken }) => {
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Tambah Jadwal</h2>
             <form onSubmit={handleSubmit}>
-              <label className="block mb-2">HARI</label>
+              <label className="block mb-2">Hari</label>
               <input type="text" name="HARI" value={formData.HARI} onChange={handleChange} required className="w-full p-2 border rounded mb-4" />
 
-              <label className="block mb-2">TANGGAL</label>
+              <label className="block mb-2">Tanggal</label>
               <input type="date" name="TANGGAL" value={formData.TANGGAL} onChange={handleChange} required className="w-full p-2 border rounded mb-4" />
 
               <label className="block mb-2">Mulai Pukul</label>

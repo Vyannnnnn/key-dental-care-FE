@@ -74,30 +74,60 @@ const TimetableDetailModal = ({ isOpen, onClose, timetableData }) => {
 
   const handleDelete = async () => {
     if (!timetableData?.id) {
-      setError("invalid timetable id");
+      setError("Invalid timetable ID");
       return;
     }
-
-    if (!window.confirm("Are you sure you want to delete")) {
-      return;
-    }
-
-    try {
-      const response = await fetch(`http://localhost:3000/api/timetable/${timetableData.id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}, Data: ${errorData}`);
+  
+    toast.info(
+      ({ closeToast }) => (
+        <div className="text-center p-2">
+          <p className="text-gray-800 font-medium mb-3">Are you sure you want to delete this?</p>
+          <div className="flex justify-center gap-3">
+            <button
+              onClick={async () => {
+                closeToast();
+                try {
+                  const response = await fetch(`http://localhost:3000/api/timetable/${timetableData.id}`, {
+                    method: "DELETE",
+                  });
+  
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! Status: ${response.status}, Data: ${errorData}`);
+                  }
+  
+                  toast.success("Deleted timetable successfully");
+                  setTimeout(() => {
+                    onClose();
+                  }, 1000);
+                } catch (error) {
+                  console.error("Error deleting timetable:", error.message);
+                  setError("Error deleting timetable. Please try again.");
+                }
+              }}
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-1.5 rounded transition"
+            >
+              Yes
+            </button>
+            <button
+              onClick={closeToast}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-4 py-1.5 rounded transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+        draggable: false,
+        hideProgressBar: true,
+        icon: false,
       }
-      toast.success("Deleted timetable succesfully");
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-    } catch (error) {
-      console.error("Error deleting timetable:", error.message);
-      setError("Error deleting timetable. Please try again.");
-    }
+    );
   };
 
   return (

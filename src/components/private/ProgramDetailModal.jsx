@@ -71,37 +71,63 @@ const ProgramDetailModal = ({ isOpen, onClose, programData }) => {
     return null;
   }
 
-const handleDelete = async () => {
-  if (!programData?.id) {
-    setError("invalid program id");
-    return;
-  }
-
-  if (!window.confirm("Are you sure you want to delete")) {
-    return;
-  }
+  const handleDelete = async () => {
+    if (!programData?.id) {
+      setError("Invalid timetable ID");
+      return;
+    }
   
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/program/${programData.id}`,
+    toast.info(
+      ({ closeToast }) => (
+        <div className="text-center p-2">
+          <p className="text-gray-800 font-medium mb-3">Are you sure you want to delete this?</p>
+          <div className="flex justify-center gap-3">
+            <button
+              onClick={async () => {
+                closeToast();
+                try {
+                  const response = await fetch(`http://localhost:3000/api/timetable/${programData.id}`, {
+                    method: "DELETE",
+                  });
+  
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`HTTP error! Status: ${response.status}, Data: ${errorData}`);
+                  }
+  
+                  toast.success("Deleted program data successfully");
+                  setTimeout(() => {
+                    onClose();
+                  }, 1000);
+                } catch (error) {
+                  console.error("Error deleting program data:", error.message);
+                  setError("Error deleting program data. Please try again.");
+                }
+              }}
+              className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-1.5 rounded transition"
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => closeToast()}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-4 py-1.5 rounded transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
       {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          `HTTP error! Status: ${response.status}, Data: ${errorData}`
-        );
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+        draggable: false,
+        hideProgressBar: true,
+        icon: false,
       }
-      toast.success("Deleted program succesfully");
-      setTimeout(() => {
-        onClose();
-      }, 1000);
-} catch (error){
-  console.error("Error deleting program:", error.message);
-  setError("Error deleting program. Please try again.");
-}
-}
+    );
+  };
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

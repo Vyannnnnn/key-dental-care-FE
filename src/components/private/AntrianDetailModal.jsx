@@ -131,11 +131,11 @@ const AntrianDetailModal = ({ isOpen, onClose, antrianData }) => {
                 </div>
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">No. Telepon</label>
-                  <input type="text" name="No_Telepon" value={editedData.No_Telepon} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
+                  <input type="text" name="No_Telepon" value={editedData.No_Telepon || ""} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
                 <div className="mb-4">
                   <label className="text-sm text-gray-500">Hari & Tanggal</label>
-                  <input type="text" name="Hari_Tanggal" value={editedData.Hari_Tanggal} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
+                  <input type="text" name="Hari_Tanggal" value={editedData.Hari_Tanggal || ""} onChange={handleInputChange} className="mt-1 p-2 w-full border border-gray-300 rounded-md" />
                 </div>
               </div>
             </div>
